@@ -1,0 +1,16 @@
+import {Router} from 'express';
+import userRoutes from '../routes/user.route';
+import playerRoutes from '../routes/player.route';
+import ownerRoutes from '../routes/owner.route';
+import tournamentRoutes from '../routes/tournament.route';
+import auctionRoutes from '../routes/auction.route';
+import bidRoutes from '../routes/bid.route';
+import{BASE_API_ROUTES} from '../constants/routes.constants';
+const router = Router();
+router.use(BASE_API_ROUTES.USERS,userRoutes);
+router.use(BASE_API_ROUTES.PLAYERS,playerRoutes);
+router.use(BASE_API_ROUTES.OWNERS,ownerRoutes);
+router.use(BASE_API_ROUTES.TOURNAMENTS,tournamentRoutes);
+router.use(BASE_API_ROUTES.AUCTIONS,auctionRoutes);
+router.use(BASE_API_ROUTES.BID,bidRoutes);
+export default router;
