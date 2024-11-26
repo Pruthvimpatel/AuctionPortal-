@@ -3,11 +3,11 @@ import ApiError from '../utils/api-error';
 import ApiResponse from '../utils/api-response';
 import asyncHandler from '../utils/async-handler';
 import db  from '../sequelize-client';
-
+import fs from 'fs';
 import User from '../models/user.model';
 import {ERROR_MESSAGES,SUCCESS_MESSAGES} from  '../constants/message';
-import { Op } from 'sequelize';
-
+import { createObjectCsvWriter } from 'csv-writer';
+import { sendEmail } from '../utils/mailer';
 interface MyUserRequest extends Request {
     token?: string;
     user?: User;
@@ -92,6 +92,7 @@ export const liveAuction = asyncHandler(async(req:MyUserRequest,res:Response,nex
 
 });
 
+
 //End Auction for a Specific Player
 export const endAuction = asyncHandler(async(req:MyUserRequest,res:Response,next:NextFunction) => {
    const user = req.user;
@@ -115,8 +116,9 @@ export const endAuction = asyncHandler(async(req:MyUserRequest,res:Response,next
         auctionId,
     },
     order: [['bidAmount', 'DESC']],
+    include: [{model: db.User, attributes:['email']}],
   });
-    if(!highestBid) {
+    if(!highestBid ||!highestBid.User) {
         return next(new ApiError(400,ERROR_MESSAGES.NO_HIGHEST_BID_FOUND));
     }
 
@@ -126,7 +128,21 @@ export const endAuction = asyncHandler(async(req:MyUserRequest,res:Response,next
     highestBid.status = 'accepted';
     await highestBid.save();
 
-    const response = new ApiResponse(200, auction, SUCCESS_MESSAGES.AUCTION_END_SUCCESSFULLY);
+
+    //send email to the highest bidder
+    const emailSubject = 'Auction Won Notification';
+    const emailBody = `Congratulations! You have won the auction for Auction ID: ${auctionId}. Your bid amount was ${highestBid.bidAmount}.`;
+    console.log(`Sending email to: ${highestBid.User.email}`);
+    console.log(`Email Subject: ${emailSubject}`);
+    console.log(`Email Body: ${emailBody}`);
+    await sendEmail({
+      to: highestBid.User.email,
+      subject: emailSubject,
+      text: emailBody,
+    }); 
+
+  
+   const response = new ApiResponse(200, auction, SUCCESS_MESSAGES.AUCTION_END_SUCCESSFULLY);
     res.status(200).json(response);
    } catch(error) {
     console.log(error);
@@ -173,7 +189,6 @@ const user = req.user;
   }
 });
 
-
 //get-top bidders
 export const getTopBidders = asyncHandler(async(req:MyUserRequest,res:Response,next:NextFunction) => {
   const user = req.user;
@@ -192,6 +207,89 @@ export const getTopBidders = asyncHandler(async(req:MyUserRequest,res:Response,n
     const response = new ApiResponse(200,topBidders,SUCCESS_MESSAGES.TOP_BIDDERS_FETCHED)
     res.status(200).json(response);
   } catch(error) {
+    console.log(error);
+    return next(new ApiError(500,ERROR_MESSAGES.INTERNAL_SERVER_ERROR));
+  }
+});
+
+//Export auction data to a CSV file.
+export const exportAuctionData = asyncHandler(async(req:MyUserRequest,res:Response,next:NextFunction)=> {
+  const user = req.user;
+  if(!user) {
+    return next(new ApiError(404,ERROR_MESSAGES.USER_NOT_FOUND));
+  }
+  try {
+   //fetching auction data
+   const auction = await db.Auction.findAll({
+    attributes: ['id', 'tournamentId', 'startTime', 'endTime', 'bidAmount', 'status', 'playerId'],
+   });
+
+   if(!auction) {
+    return next(new ApiError(404,ERROR_MESSAGES.AUCTION_NOT_FOUND));
+   }
+
+   //define  CSV file path
+   const filePath = './exports/auction-data.csv';
+
+   //creating CSV file
+   const csvWriter = createObjectCsvWriter({
+    path: filePath,
+    header: [
+      {id: 'id', title: 'Auction ID'},
+      {id: 'tournamentId', title: 'Tournament ID'},
+      {id:'startTime', title: 'Start Time'},
+      {id: 'endTime', title: 'End Time'},
+      {id: 'bidAmount', title: 'Bid Amount'},
+      {id:'status', title: 'Status'},
+      {id: 'playerId', title: 'Player ID'},
+    ],
+   });
+
+   //writing data to CSV file
+   await csvWriter.writeRecords(
+    auction.map((auction) => ({
+      id:auction.id,
+      tournamentId: auction.tournamentId,
+      startTime: auction.startTime,
+      endTime: auction.endTime,
+      bidAmount: auction.bidAmount,
+      status: auction.status,
+      playerId: auction.playerId,
+    }))
+   );
+
+   const response = new ApiResponse(200,{},SUCCESS_MESSAGES.AUCTION_EXPORT_SUCCESS);
+   res.status(200).send(response);
+   
+  }catch(error){
+    console.log(error);
+    return next(new ApiError(500,ERROR_MESSAGES.INTERNAL_SERVER_ERROR));
+  }
+});
+
+//Download exported CSV file
+export const downloadExportedAuctionData = asyncHandler(async(req:MyUserRequest,res:Response,next:NextFunction)=> {
+  const user = req.user;
+  if(!user) {
+    return next(new ApiError(404,ERROR_MESSAGES.USER_NOT_FOUND));
+  }
+  try {
+
+    const filePath = './exports/auction-data.csv';
+
+    if(!fs.existsSync(filePath)) {
+      return next(new ApiError(404,ERROR_MESSAGES.EXPORTED_DATA_NOT_FOUND));
+    }
+    //Download the file
+    res.download(filePath,'auction-data.csv',(err)=> {
+      if(err) {
+        console.log(err);
+        return next(new ApiError(500,ERROR_MESSAGES.FILE_DOWNLOAD_ERROR));
+      }
+
+      fs.unlinkSync(filePath);
+    });
+  }catch(error) {
     console.log(error);
     return next(new ApiError(500,ERROR_MESSAGES.INTERNAL_SERVER_ERROR));
   }

@@ -29,7 +29,14 @@ export const ERROR_MESSAGES = {
     NO_BID_FOUND: 'No Bid found',
     NO_LIVE_AUCTION_FOUND: 'No Live auction found',
     AUCTION_ALREADY_ENDED: 'Auction already ended',
-    NO_HIGHEST_BID_FOUND: 'No auction bid found'
+    NO_HIGHEST_BID_FOUND: 'No auction bid found',
+    FILE_REQUIRED: 'File is required',
+    PROFILE_UPLOAD_FAILED: 'Profile upload failed',
+    TEAMS_NOT_FOUND: 'No Teams found',
+    NO_TEAMS_FOUND_IN_TOURNAMENT: 'No Teams found in tournament',
+    NO_BID_HISTORY_FOUND: 'No bid history found',
+    EXPORTED_DATA_NOT_FOUND: 'Exported data not found',
+    FILE_DOWNLOAD_ERROR: 'Error downloading file'
   };
   
   export const SUCCESS_MESSAGES = {
@@ -59,5 +66,19 @@ export const ERROR_MESSAGES = {
     BIDS_FETCHED_SUCCESSFULLY: 'Bids Fetched Successfully',
     AUCTION_END_SUCCESSFULLY: 'Auction End Successfully',
     AUCTION_DETAILS_FETCHED: 'Auction Details Fetched Success',
-    TOP_BIDDERS_FETCHED: 'Top Bidder Details Fetched Success'
+    TOP_BIDDERS_FETCHED: 'Top Bidder Details Fetched Success',
+    TEAM_CREATED_SUCCESSFULLY: 'Team Created Successfully',
+    PROFILE_UPLOAD_SUCCESSFULLY: 'Profile Upload Successfully',
+    TEAMS_FETCHED_SUCCESSFULLY: 'Teams Fetched Successfully',
+    TEAM_DETAILS_FETCHED_SUCCESSFULLY: 'Team Details Fetched Successfully',
+    TEAM_DETAILS_UPDATED_SUCCESSFULLY: 'Team Details Updated Successfully',
+    TEAM_DELETED_SUCCESSFULLY: 'Team Deleted Successfully',
+    PLAYER_ADDED_TO_TEAM_SUCCESSFULLY: 'Player Added to Team Successfully',
+    TEAMS_ADDED_TO_TOURNAMENT: 'Teams Added to Tournament Successfully',
+    TEAM_TOURNAMENT_UPDATED_SUCCESSFULLY: 'Team Tournament Updated Successfully',
+    ADMIN_STATISTICS_FETCHED_SUCCESSFULLY: 'Admin Statistics Fetched Successfully',
+    BID_HISTORY_RETRIEVED: 'Bid History Fetched Successfully',
+    BID_HISTORY_CREATED_SUCCESSFULLY: 'Bid History Created Successfully',
+    AUCTION_EXPORT_SUCCESS: 'Auction Exported Successfully',
+    
   };

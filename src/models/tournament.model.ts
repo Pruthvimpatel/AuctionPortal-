@@ -82,6 +82,11 @@ import Sequelize, {
     Tournament.hasMany(models.Auction, { foreignKey: 'tournamentId'});
     Tournament.belongsTo(models.Team, { foreignKey: 'teamId'});
     Tournament.belongsTo(models.Player, { foreignKey: 'playerId'});
+    Tournament.belongsToMany(models.Team, {
+      through: models.TeamTournament,
+      foreignKey: 'tournamentId',
+      otherKey: 'teamId',
+    });
    };
   
     return Tournament;

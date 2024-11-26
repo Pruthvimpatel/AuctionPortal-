@@ -5,43 +5,35 @@ import Sequelize, {
     Model,
   } from 'sequelize';
   import db from '../sequelize-client';
-import User from './user.model';
   
-  export interface BidModelCreationAttributes {
+  export interface BidHistoryModelCreationAttributes {
     auctionId: string;
     teamId: string;
-    userId: string;
-    role: 'Batsman' | 'Bowler' | 'All-Rounder' | 'Wicket-Keeper';
+    playerId: string;
     bidAmount: string;
-    startTime: string;
-    endTime: string;
   }
   
-  export interface BidModelAttributes extends BidModelCreationAttributes {
+  export interface BidHistoryModelAttributes extends BidHistoryModelCreationAttributes {
     id: string;
   }
   
-  export default class Bid extends Model<InferAttributes<Bid>, InferCreationAttributes<Bid>> {
+  export default class BidHistory extends Model<InferAttributes<BidHistory>, InferCreationAttributes<BidHistory>> {
     declare id: CreationOptional<string>;
     declare auctionId: string;
     declare teamId: string;
-    declare userId: string;
-    declare status: 'pending' | 'accepted' | 'rejected';
+   declare playerId: string;
     declare bidAmount: string;
-    declare startTime: string;
-    declare endTime: string;
 
-    declare User?: User;
   
     static associate: (models: typeof db) => void;
   }
   
 
-  export const bid = (
+  export const bidHistory = (
     sequelize: Sequelize.Sequelize,
     DataTypes: typeof Sequelize.DataTypes,
   ) => {
-    Bid.init(
+    BidHistory.init(
       {
         id: {
           type: DataTypes.UUID,
@@ -56,45 +48,33 @@ import User from './user.model';
             type: DataTypes.UUID,
             allowNull: false,
           },
-          userId: {
+          playerId: {
             type: DataTypes.UUID,
             allowNull: false,
           },
-        status: {
-          type: DataTypes.ENUM('pending', 'accepted', 'rejected'),
-          allowNull: false,
-        },
         bidAmount: {
           type: DataTypes.STRING,
           allowNull: false,
         },
-        startTime: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-        endTime: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        }
+      
       },
       {
         sequelize,
         underscored: true,
         timestamps: true,
         paranoid: true,
-        modelName: 'Bid',
-        tableName: 'bids',
+        modelName: 'BidHistory',
+        tableName: 'bid_history',
       }
     );
   
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    Bid.associate = models => {
-    Bid.belongsTo(models.Auction, { foreignKey: 'auctionId' });
-    Bid.belongsTo(models.Team, { foreignKey: 'teamId' });
-    Bid.belongsTo(models.User, { foreignKey: 'userId' });
-
+    BidHistory.associate = models => {
+    BidHistory.belongsTo(models.Auction, { foreignKey: 'auctionId' });
+    BidHistory.belongsTo(models.Team, { foreignKey: 'teamId' });
+    BidHistory.belongsTo(models.Player, { foreignKey: 'playerId' });
     }
   
-    return Bid;
+return BidHistory;
   };
   

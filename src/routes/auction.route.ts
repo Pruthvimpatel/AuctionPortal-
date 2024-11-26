@@ -1,5 +1,5 @@
 import {Router} from 'express';
-import {startAuction,liveAuction,endAuction,getAuctionDetails,getTopBidders} from '../controllers/auction.controller';
+import {startAuction,liveAuction,endAuction,getAuctionDetails,getTopBidders,exportAuctionData,downloadExportedAuctionData} from '../controllers/auction.controller';
 import {AUCTION_ROUTES} from '../constants/routes.constants';
 import {verifyToken} from '../middleware/auth.middleware';
 import {validateReq} from '../middleware/validation';
@@ -11,6 +11,8 @@ router.get(AUCTION_ROUTES.LIVE_AUCTION,verifyToken,liveAuction);
 router.post(AUCTION_ROUTES.END_AUCTION,verifyToken,validateReq(endAuctionSchema),endAuction);
 router.get(AUCTION_ROUTES.AUCTION_DETAILS,verifyToken,getAuctionDetails);
 router.get(AUCTION_ROUTES.TOP_BIDDERS,verifyToken,getTopBidders);
+router.get(AUCTION_ROUTES.EXPORT,verifyToken,exportAuctionData);
+router.get(AUCTION_ROUTES.DOWNLOAD,verifyToken,downloadExportedAuctionData);
 export default router;
 
 

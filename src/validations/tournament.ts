@@ -15,4 +15,6 @@ export const updateTournamentSchema = Joi.object({
     endDate: Joi.date().iso().greater(Joi.ref('startDate')).required(),
     location: Joi.string().required(),
   });
+
+
   

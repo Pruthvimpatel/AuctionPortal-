@@ -99,7 +99,10 @@ export const user = (
     }
   );
 
-  User.associate = models => {};
+  User.associate = models => {
+    User.hasMany(models.Team, { foreignKey: 'userId'});
+    User.hasMany(models.Bid, { foreignKey: 'userId' });
+  };
 
   return User;
 };

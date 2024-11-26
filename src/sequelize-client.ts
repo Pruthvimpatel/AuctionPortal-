@@ -10,7 +10,9 @@ import {accessToken} from './models/access-token.model';
 import {teamOwner} from './models/team-owner.model';
 import{tournament} from './models/tournament.model';
 import {auction} from './models/auction.model';
-import {bid} from './models/bid.model'
+import {bid} from './models/bid.model';
+import {teamTournament} from './models/team_tournament.model';
+import {bidHistory}from './models/bid-history.model';
 const env = process.env.NODE_ENV || 'development';
 
 type Model = (typeof db)[keyof typeof db]
@@ -35,6 +37,8 @@ const db = {
      Tournament: tournament(sequelize,DataTypes),
      Auction: auction(sequelize,DataTypes),
      Bid: bid(sequelize,DataTypes),
+     TeamTournament: teamTournament(sequelize,DataTypes),
+     BidHistory: bidHistory(sequelize,DataTypes),
      models: sequelize.models
 };
 

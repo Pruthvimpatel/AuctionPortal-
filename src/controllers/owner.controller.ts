@@ -201,13 +201,13 @@ export const assignTeam = asyncHandler(async(req:MyUserRequest,res:Response,next
     const existingAssignment = await db.Team.findOne({
         where:{
             id:teamId,
-            ownerId:ownerId
+            userId:ownerId
         }
     });
     if(existingAssignment) {
         return next(new ApiError(400,ERROR_MESSAGES.ALREADY_ASSIGNED_TO_OWNER));
     }
-    team.ownerId = ownerId;
+    team.userId = ownerId;
     await team.save();
     const response = new ApiResponse(200,SUCCESS_MESSAGES.TEAM_ASSIGNED_SUCCESSFULLY);
     res.status(200).json(response);

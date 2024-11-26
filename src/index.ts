@@ -1,7 +1,7 @@
 import * as dotenv from 'dotenv';
 dotenv.config();
 
-import app from './app';
+import {app} from './app';
 import db from './sequelize-client';
 const PORT = process.env.PORT || 8000
 

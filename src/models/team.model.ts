@@ -8,9 +8,8 @@ import Sequelize, {
   
   export interface TeamModelCreationAttributes {
     name: string;
-    ownerId: string;
+    userId: string;
     logo: string;
-    budget: string;
   }
   
   export interface TeamModelAttributes extends TeamModelCreationAttributes {
@@ -20,9 +19,8 @@ import Sequelize, {
   export default class Team extends Model<InferAttributes<Team>, InferCreationAttributes<Team>> {
     declare id: CreationOptional<string>;
     declare name: string;
-    declare ownerId: string;
+    declare userId: string;
     declare logo: string;
-    declare budget: string;
   
     static associate: (models: typeof db) => void;
   }
@@ -42,15 +40,11 @@ import Sequelize, {
           type: DataTypes.STRING,
           allowNull: false,
         },
-        ownerId: {
+        userId: {
           type: DataTypes.UUID,
           allowNull: false,
         },
         logo: {
-          type: DataTypes.STRING,
-          allowNull: false,
-        },
-        budget: {
           type: DataTypes.STRING,
           allowNull: false,
         },
@@ -70,6 +64,12 @@ import Sequelize, {
       Team.hasMany(models.Player, { foreignKey: 'teamId' });
       Team.hasMany(models.Tournament, { foreignKey: 'teamId' });
       Team.hasMany(models.Bid, { foreignKey: 'teamId' });
+      Team.belongsTo(models.User, { foreignKey: 'userId'}); 
+      Team.belongsToMany(models.Tournament, {
+        through: models.TeamTournament,
+        foreignKey: 'teamId',
+        otherKey: 'tournamentId',
+      });
     };
   
     return Team;

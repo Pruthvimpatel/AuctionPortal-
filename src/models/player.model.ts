@@ -9,7 +9,13 @@ import Sequelize, {
   export interface PlayerModelCreationAttributes {
     name: string;
     age: string;
+    gender: 'Male' | 'Female' | 'Other';
+    profilePicture?: string | null;
     role: 'Batsman' | 'Bowler' | 'All-Rounder' | 'Wicket-Keeper';
+    battingOrder: 'Top' | 'Middle' | 'Lower';
+    battingHand: 'Left' | 'Right';
+    bowlingHand: 'Left' | 'Right';
+    skillRating: '0' | '1' | '2' | '3' | '4' | '5';
     teamId: string;
     basePrice: string;
   }
@@ -22,7 +28,13 @@ import Sequelize, {
     declare id: CreationOptional<string>;
     declare name: string;
     declare age: string;
+    declare gender: 'Male' | 'Female' | 'Other';
+    declare profilePicture: CreationOptional<string | null>
     declare role: 'Batsman' | 'Bowler' | 'All-Rounder' | 'Wicket-Keeper';
+    declare battingOrder: 'Top' | 'Middle' | 'Lower';
+    declare battingHand: 'Left' | 'Right';
+    declare bowlingHand: 'Left' | 'Right';
+    declare skillRating: '0' | '1' | '2' | '3' | '4' | '5';
     declare teamId: string;
     declare basePrice: string;
   
@@ -49,8 +61,32 @@ import Sequelize, {
           type: DataTypes.STRING,
           allowNull: false,
         },
+        gender: {
+          type: DataTypes.ENUM('Male', 'Female', 'Other'),
+          allowNull: false,
+        },
+        profilePicture: {
+          type: DataTypes.STRING,
+          allowNull: true,
+      },
         role: {
           type: DataTypes.ENUM('Batsman', 'Bowler', 'All-Rounder', 'Wicket-Keeper'),
+          allowNull: false,
+        },
+        battingOrder: {
+          type: DataTypes.ENUM('Top', 'Middle', 'Lower'),
+          allowNull: false,
+        },
+        battingHand: {
+          type: DataTypes.ENUM('Left', 'Right'),
+          allowNull: false,
+        },
+        bowlingHand: {
+          type: DataTypes.ENUM('Left', 'Right'),
+          allowNull: false,
+        },
+        skillRating: {
+          type:DataTypes.ENUM('0' , '1' , '2' , '3' , '4' , '5'),
           allowNull: false,
         },
         teamId: {
@@ -76,7 +112,8 @@ import Sequelize, {
     Player.associate = models => {
       Player.belongsTo(models.Team, { foreignKey: 'teamId' });
       Player.hasMany(models.Auction, { foreignKey: 'playerId' });
-      Player.hasMany(models.Tournament, { foreignKey: 'playerId' });  // One Player can have many Tournaments
+      Player.hasMany(models.Tournament, { foreignKey: 'playerId' });
+      Player.hasMany(models.BidHistory, {foreignKey: 'playerId' });
     };
   
     return Player;

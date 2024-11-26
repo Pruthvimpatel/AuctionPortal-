@@ -36,7 +36,8 @@ export const placeBid = asyncHandler(async(req:MyUserRequest,res:Response,next:N
         status: 'pending',
         bidAmount,
         startTime,
-        endTime
+        endTime,
+        userId:user.id
     })
 
     const response = new ApiResponse(201,bid,SUCCESS_MESSAGES.BID_PLACED_SUCCESSFULLY);
@@ -153,4 +154,5 @@ export const getBidById = asyncHandler(async(req:MyUserRequest,res:Response,next
         return next(new ApiError(500,ERROR_MESSAGES.INTERNAL_SERVER_ERROR));
     }
 });
+
 

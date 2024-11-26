@@ -190,3 +190,145 @@ res.status(200).json(response)
     return next(new ApiError(401,ERROR_MESSAGES.INTERNAL_SERVER_ERROR));
 }
 });
+
+
+// Adding multiple Teams to Tournament 
+export const addTeamToTournament = asyncHandler(async(req:MyUserRequest,res:Response,next:NextFunction) => {
+    const user = req.user;
+    if(!user) {
+        return next(new ApiError(401,ERROR_MESSAGES.USER_NOT_FOUND));
+    }
+    const {tournamentId} = req.params;
+    const {teamIds} = req.body;
+
+    if (!tournamentId || !teamIds || !Array.isArray(teamIds)) {
+        return next(new ApiError(400, ERROR_MESSAGES.ALL_FIELDS_REQUIRED));
+      }
+
+    try {
+
+        const tournament = await db.Tournament.findByPk(tournamentId);
+        if(!tournament) {
+            return next(new ApiError(401,ERROR_MESSAGES.NO_TOURNAMENT_FOUND));
+        }
+
+        //team exists or not
+        const team = await db.Team.findAll({
+            where: {
+                id: teamIds
+            }
+        });
+        if(!team) {
+            return next(new ApiError(401,ERROR_MESSAGES.NO_TEAM_FOUND));
+        }
+
+        const teamTournamentEntries = teamIds.map(teamId => ({
+            teamId,
+            tournamentId,
+          }));
+          await db.TeamTournament.bulkCreate(teamTournamentEntries);
+        const response = new ApiResponse(201,{tournament,team},SUCCESS_MESSAGES.TEAMS_ADDED_TO_TOURNAMENT);
+        res.status(201).json(response);
+
+    }catch(error) {
+        console.log(error);
+        return next(new ApiError(401,ERROR_MESSAGES.INTERNAL_SERVER_ERROR));
+    }
+});
+
+//Fetch all teams participating in a specific tournament.
+export const getTeamsInTournament = asyncHandler(async(req:MyUserRequest,res:Response,next:NextFunction) => {
+    const user = req.user;
+    if(!user){
+        return next(new ApiError(400,ERROR_MESSAGES.USER_NOT_FOUND));
+    }
+    const {tournamentId} = req.params;
+    if(!tournamentId) {
+        return next(new ApiError(400,ERROR_MESSAGES.ALL_FIELDS_REQUIRED));
+    }
+    try {
+        const teamsInTournament = await db.Team.findAll({
+            include: {
+              model: db.Tournament,
+              where: { id: tournamentId },
+              attributes: [],
+            },
+          });
+
+        if(!teamsInTournament) {
+            return next(new ApiError(400,ERROR_MESSAGES.NO_TEAMS_FOUND_IN_TOURNAMENT));
+        }
+
+        const response = new ApiResponse(200,teamsInTournament,SUCCESS_MESSAGES.TEAMS_FETCHED_SUCCESSFULLY);
+        res.status(200).json(response);
+    }catch(error) {
+        console.log(error)
+        return next(new ApiError(400,ERROR_MESSAGES.INTERNAL_SERVER_ERROR));
+    }
+
+});
+
+
+//Get All Tournaments for a Team
+export const getTournamentsForTeam = asyncHandler(async(req:MyUserRequest,res:Response,next:NextFunction) => {
+    const user = req.user;
+    if(!user) {
+        return next(new ApiError(400,ERROR_MESSAGES.USER_NOT_FOUND));
+    }
+    const {teamId} = req.params;
+    if(!teamId) {
+        return next(new ApiError(400,ERROR_MESSAGES.ALL_FIELDS_REQUIRED));
+    }
+    try {
+     const tournaments = await db.TeamTournament.findAll({
+        where: {
+            teamId
+        },
+        include: [
+            {
+                model: db.Tournament
+            }
+        ]
+
+     });
+
+     if(!tournaments) {
+        return next(new ApiError(400,ERROR_MESSAGES.NO_TOURNAMENT_FOUND));
+     }
+   const response = new ApiResponse(200,tournaments,SUCCESS_MESSAGES.TOURNAMENT_FETCHED_SUCCESSFULLY);
+   res.status(200).json(response);
+    }catch(error) {
+        console.log(error);
+        return next(new ApiError(400,ERROR_MESSAGES.INTERNAL_SERVER_ERROR));
+    }
+});
+
+//Update an existing existing association, such as assigning a new team to a tournament.
+export const updateTeamTournament = asyncHandler(async(req:MyUserRequest,res:Response,next: NextFunction)=> {
+    const user = req.user;
+    if(!user) {
+        return next(new ApiError(400,ERROR_MESSAGES.USER_NOT_FOUND));
+    }
+    const{id} = req.params;   //id = teamTournamentId
+    const {teamId, tournamentId} = req.params;
+    // if(!teamId || !tournamentId) {
+    //     return next(new ApiError(400,ERROR_MESSAGES.ALL_FIELDS_REQUIRED));
+    // }
+   try {
+    const findTeam = await db.TeamTournament.findByPk(id);
+    if(!findTeam) {
+        return next(new ApiError(400,ERROR_MESSAGES.NO_TOURNAMENT_FOUND));
+    }
+
+    await findTeam.update({
+        teamId,
+        tournamentId
+    })
+    const response = new ApiResponse(200,findTeam,SUCCESS_MESSAGES.TEAM_TOURNAMENT_UPDATED_SUCCESSFULLY);
+    res.status(200).json(response);
+
+   }catch(error) {
+    console.log(error);
+    return next(new ApiError(400,ERROR_MESSAGES.INTERNAL_SERVER_ERROR));
+   }
+})
