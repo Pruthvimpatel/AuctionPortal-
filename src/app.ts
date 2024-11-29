@@ -13,20 +13,21 @@ const app = express();
 app.use(express.json());
 app.use(REST_API_PREFIX.API_V1,apiLimiter)
 app.use(REST_API_PREFIX.API_V1,router);
-import cors from 'cors';
 
 const server = http.createServer(app);
-
-// app.use(cors({
-//     origin: "*",
-//     methods: ["GET", "POST"],
-//     allowedHeaders: ["*"]
-//   }))
-const io = new Server(server)
-
-console.log('io ', io);
+const io = new Server(server,{
+  cors: {
+    origin: "*",
+    methods: ["GET", "POST"],
+},
+})
 
 AuctionSocket(io);
+
+app.get('/', (req, res) => {
+  res.send('Auction Portal');
+});
+
 app.use((err: any, req: any,res: any, next: any) => {
     if(err.statusCode) {
         res.status(err.statusCode).json({message: err.message, code: err.code});

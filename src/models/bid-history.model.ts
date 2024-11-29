@@ -46,7 +46,7 @@ import Sequelize, {
         },
         teamId: {
             type: DataTypes.UUID,
-            allowNull: false,
+            allowNull: true,
           },
           playerId: {
             type: DataTypes.UUID,
@@ -71,7 +71,7 @@ import Sequelize, {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     BidHistory.associate = models => {
     BidHistory.belongsTo(models.Auction, { foreignKey: 'auctionId' });
-    BidHistory.belongsTo(models.Team, { foreignKey: 'teamId' });
+    BidHistory.belongsTo(models.Team, { foreignKey: 'teamId',constraints: false });
     BidHistory.belongsTo(models.Player, { foreignKey: 'playerId' });
     }
   

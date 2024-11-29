@@ -114,6 +114,7 @@ import Sequelize, {
       Player.hasMany(models.Auction, { foreignKey: 'playerId' });
       Player.hasMany(models.Tournament, { foreignKey: 'playerId' });
       Player.hasMany(models.BidHistory, {foreignKey: 'playerId' });
+      Player.hasMany(models.Bid, {foreignKey: 'playerId' });
     };
   
     return Player;

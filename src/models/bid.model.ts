@@ -11,6 +11,7 @@ import User from './user.model';
     auctionId: string;
     teamId: string;
     userId: string;
+    playerId: string;
     role: 'Batsman' | 'Bowler' | 'All-Rounder' | 'Wicket-Keeper';
     bidAmount: string;
     startTime: string;
@@ -24,6 +25,7 @@ import User from './user.model';
   export default class Bid extends Model<InferAttributes<Bid>, InferCreationAttributes<Bid>> {
     declare id: CreationOptional<string>;
     declare auctionId: string;
+    declare playerId: string;
     declare teamId: string;
     declare userId: string;
     declare status: 'pending' | 'accepted' | 'rejected';
@@ -60,6 +62,10 @@ import User from './user.model';
             type: DataTypes.UUID,
             allowNull: false,
           },
+          playerId: {
+            type: DataTypes.UUID,
+            allowNull: false,
+          },
         status: {
           type: DataTypes.ENUM('pending', 'accepted', 'rejected'),
           allowNull: false,
@@ -92,6 +98,8 @@ import User from './user.model';
     Bid.belongsTo(models.Auction, { foreignKey: 'auctionId' });
     Bid.belongsTo(models.Team, { foreignKey: 'teamId' });
     Bid.belongsTo(models.User, { foreignKey: 'userId' });
+    Bid.belongsTo(models.Player, { foreignKey: 'playerId' });
+
 
     }
   

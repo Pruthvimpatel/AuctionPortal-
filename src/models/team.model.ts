@@ -64,6 +64,7 @@ import Sequelize, {
       Team.hasMany(models.Player, { foreignKey: 'teamId' });
       Team.hasMany(models.Tournament, { foreignKey: 'teamId' });
       Team.hasMany(models.Bid, { foreignKey: 'teamId' });
+      Team.hasMany(models.BidHistory, { foreignKey: 'teamId',constraints: false });
       Team.belongsTo(models.User, { foreignKey: 'userId'}); 
       Team.belongsToMany(models.Tournament, {
         through: models.TeamTournament,

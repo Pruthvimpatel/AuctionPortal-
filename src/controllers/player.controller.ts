@@ -206,6 +206,7 @@ try {
 //upload profile picture
 export const profilePicture = asyncHandler(async(req:MyUserRequest,res:Response,next:NextFunction):Promise<void> => {
     const { id } = req.params;
+    console.log("id",id);
     const profilePicture = req.file?.path;
     const user = req.user;
 

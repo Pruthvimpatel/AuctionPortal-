@@ -19,7 +19,7 @@ export const placeBid = asyncHandler(async(req:MyUserRequest,res:Response,next:N
     if(!user) {
       return next(new ApiError(404,ERROR_MESSAGES.USER_NOT_FOUND))
     }
-    const {auctionId,teamId,bidAmount,startTime,endTime} = req.body;
+    const {auctionId,teamId,playerId,bidAmount,startTime,endTime} = req.body;
     const auction = await db.Auction.findByPk(auctionId);
     if(!auction) {
         return next(new ApiError(404,ERROR_MESSAGES.AUCTION_NOT_FOUND))
@@ -30,14 +30,20 @@ export const placeBid = asyncHandler(async(req:MyUserRequest,res:Response,next:N
         return next(new ApiError(404,ERROR_MESSAGES.NO_TEAM_FOUND))
     }
 
+    const player = await db.Player.findByPk(playerId);
+    if(!player) {
+        return next(new ApiError(404,ERROR_MESSAGES.PLAYER_NOT_FOUND))
+    }
+
     const bid = await db.Bid.create({
         auctionId,
         teamId,
+        playerId,
         status: 'pending',
         bidAmount,
         startTime,
         endTime,
-        userId:user.id
+        userId:user.id,  
     })
 
     const response = new ApiResponse(201,bid,SUCCESS_MESSAGES.BID_PLACED_SUCCESSFULLY);

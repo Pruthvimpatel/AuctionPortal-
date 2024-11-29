@@ -36,7 +36,11 @@ export const ERROR_MESSAGES = {
     NO_TEAMS_FOUND_IN_TOURNAMENT: 'No Teams found in tournament',
     NO_BID_HISTORY_FOUND: 'No bid history found',
     EXPORTED_DATA_NOT_FOUND: 'Exported data not found',
-    FILE_DOWNLOAD_ERROR: 'Error downloading file'
+    FILE_DOWNLOAD_ERROR: 'Error downloading file',
+    BID_TOO_LOW: 'Bid too low',
+    AUCTION_ID_REQUIRED: 'Auction Id is required',
+    INVALID_BID_AMOUNT: 'Invalid bid amount',
+    PENDING_PLAYERS_LEFT: 'Players are left for auction.'
   };
   
   export const SUCCESS_MESSAGES = {
@@ -80,5 +84,7 @@ export const ERROR_MESSAGES = {
     BID_HISTORY_RETRIEVED: 'Bid History Fetched Successfully',
     BID_HISTORY_CREATED_SUCCESSFULLY: 'Bid History Created Successfully',
     AUCTION_EXPORT_SUCCESS: 'Auction Exported Successfully',
+    BID_HISTORY_FOUND: 'Bid History Found Successfully',
+
     
   };

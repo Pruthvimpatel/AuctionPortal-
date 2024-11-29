@@ -13,6 +13,7 @@ export interface UserModelCreationAttributes {
   password: string;
   userName?: string;
   role?: 'admin' | 'teamOwner' | 'viewer';
+  profilePicture?: string | null;
 }
 
 export interface UserModelAttributes extends UserModelCreationAttributes {
@@ -28,6 +29,7 @@ export default class User extends Model<
   declare password: string;
   declare userName: string;
   declare role: CreationOptional<'admin' | 'teamOwner' | 'viewer'>;
+  declare profilePicture: CreationOptional<string | null>
 
   static associate: (models: typeof db) => void;
 
@@ -84,6 +86,10 @@ export const user = (
         allowNull: false,
         defaultValue: 'viewer',
       },
+      profilePicture: {
+        type: DataTypes.STRING,
+        allowNull: true,
+    }
     },
     {
       sequelize,

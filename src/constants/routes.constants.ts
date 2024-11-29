@@ -1,7 +1,8 @@
 export const USER_ROUTES = {
     REGISTER: '/register',
     LOGIN: '/login',
-    LOGOUT: '/logout'
+    LOGOUT: '/logout',
+    UPLOAD_PROFILE:'/upload-profile'
 };
 
 export const PLAYER_ROUTES = {
@@ -67,7 +68,8 @@ export const BID_HISTORY_ROUTES = {
 CREATE_BID_HISTORY: '/create-bid-history',
 GET_BID_BY_TEAMS: '/get-bid-by-teams/:teamId',
 GET_BID_BY_AUCTION: '/get-bid-by-auction/:auctionId',
-GET_BID_BY_PLAYER: '/get-bid-by-player/:playerId'
+GET_BID_BY_PLAYER: '/get-bid-by-player/:playerId',
+CREATE_BID: '/create-bid',
 };
 
 export const BASE_API_ROUTES = {

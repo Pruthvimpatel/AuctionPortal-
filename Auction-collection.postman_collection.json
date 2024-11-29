@@ -1,0 +1,1519 @@
+{
+	"info": {
+		"_postman_id": "9c1293f2-e58d-43bf-a92d-6d1b859cc3f4",
+		"name": "Auction-collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23142204"
+	},
+	"item": [
+		{
+			"name": "player",
+			"item": [
+				{
+					"name": "player-register",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJkMzQ4YTExZC1hNjMwLTRhNjEtOWRhYS1iNDU3NzYyOWEzZWYiLCJlbWFpbCI6InBydXRoYTIyNTVAZ21haWwuY29tIiwiaWF0IjoxNzMyODU2MDIwLCJleHAiOjE3MzI5NDI0MjB9.hzPDQhFSG-faIOjTb36c-PKpFy4HbOTeCTHZO80iyHQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Kinjal\",\r\n  \"age\": \"22\",\r\n  \"role\": \"Bowler\",\r\n  \"teamId\": \"fcdb1ce1-88a7-4b64-8529-346969998fc8\",\r\n  \"basePrice\": \"75000000\",\r\n  \"gender\": \"Female\",\r\n  \"battingOrder\": \"Middle\",\r\n  \"battingHand\": \"Right\",\r\n  \"bowlingHand\": \"Right\",\r\n  \"skillRating\": \"4\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/v1/players/player-register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"players",
+								"player-register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-all-players",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJkMzQ4YTExZC1hNjMwLTRhNjEtOWRhYS1iNDU3NzYyOWEzZWYiLCJlbWFpbCI6InBydXRoYTIyNTVAZ21haWwuY29tIiwiaWF0IjoxNzMyODU2MDIwLCJleHAiOjE3MzI5NDI0MjB9.hzPDQhFSG-faIOjTb36c-PKpFy4HbOTeCTHZO80iyHQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/v1/players/get-all-players?page=1&limit=10&sortBy=name&sortOrder=ASC",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"players",
+								"get-all-players"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "sortBy",
+									"value": "name"
+								},
+								{
+									"key": "sortOrder",
+									"value": "ASC"
+								},
+								{
+									"key": "search",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-player-details",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJkMzQ4YTExZC1hNjMwLTRhNjEtOWRhYS1iNDU3NzYyOWEzZWYiLCJlbWFpbCI6InBydXRoYTIyNTVAZ21haWwuY29tIiwiaWF0IjoxNzMyODU2MDIwLCJleHAiOjE3MzI5NDI0MjB9.hzPDQhFSG-faIOjTb36c-PKpFy4HbOTeCTHZO80iyHQ",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/v1/players/get-player-details/92fc3028-a77c-45c8-811f-48e7db0d9696",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"players",
+								"get-player-details",
+								"92fc3028-a77c-45c8-811f-48e7db0d9696"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update-player-details",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJkMzQ4YTExZC1hNjMwLTRhNjEtOWRhYS1iNDU3NzYyOWEzZWYiLCJlbWFpbCI6InBydXRoYTIyNTVAZ21haWwuY29tIiwiaWF0IjoxNzMyODU2MDIwLCJleHAiOjE3MzI5NDI0MjB9.hzPDQhFSG-faIOjTb36c-PKpFy4HbOTeCTHZO80iyHQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n \"playerId\": \"c2f2da62-8e34-4bb1-9ebe-abb79f74e407\",\r\n  \"name\": \"chirag\",\r\n  \"age\": \"26\",\r\n  \"role\": \"Batsman\",\r\n  \"basePrice\": \"5000000\",\r\n  \"gender\": \"Male\",\r\n  \"battingOrder\": \"Middle\",\r\n  \"battingHand\": \"Right\",\r\n  \"bowlingHand\": \"Right\",\r\n  \"skillRating\": \"5\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/v1/players/update-player-details",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"players",
+								"update-player-details"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete-player",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJkMzQ4YTExZC1hNjMwLTRhNjEtOWRhYS1iNDU3NzYyOWEzZWYiLCJlbWFpbCI6InBydXRoYTIyNTVAZ21haWwuY29tIiwiaWF0IjoxNzMyODU2MDIwLCJleHAiOjE3MzI5NDI0MjB9.hzPDQhFSG-faIOjTb36c-PKpFy4HbOTeCTHZO80iyHQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"playerId\": \"851e8b2e-b6d8-46e5-9f64-391b8332671e\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/v1/players/delete-player",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"players",
+								"delete-player"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "profileUpload",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJkMzQ4YTExZC1hNjMwLTRhNjEtOWRhYS1iNDU3NzYyOWEzZWYiLCJlbWFpbCI6InBydXRoYTIyNTVAZ21haWwuY29tIiwiaWF0IjoxNzMyODU2MDIwLCJleHAiOjE3MzI5NDI0MjB9.hzPDQhFSG-faIOjTb36c-PKpFy4HbOTeCTHZO80iyHQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "profilePicture",
+									"type": "file",
+									"src": "/C:/Users/admin/Downloads/Demo.jpeg"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/v1/players/upload-profile/c2f2da62-8e34-4bb1-9ebe-abb79f74e407",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"players",
+								"upload-profile",
+								"c2f2da62-8e34-4bb1-9ebe-abb79f74e407"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Tournament",
+			"item": [
+				{
+					"name": "createTournament",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJkMzQ4YTExZC1hNjMwLTRhNjEtOWRhYS1iNDU3NzYyOWEzZWYiLCJlbWFpbCI6InBydXRoYTIyNTVAZ21haWwuY29tIiwiaWF0IjoxNzMyODU2MDIwLCJleHAiOjE3MzI5NDI0MjB9.hzPDQhFSG-faIOjTb36c-PKpFy4HbOTeCTHZO80iyHQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"cricket\",\r\n    \"startDate\":\"2024-11-01\",\r\n    \"endDate\": \"2024-11-02\",\r\n    \"location\":\"surat\",\r\n    \"playerId\":\"92fc3028-a77c-45c8-811f-48e7db0d9696\",\r\n    \"teamId\": \"fcdb1ce1-88a7-4b64-8529-346969998fc8\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/v1/tournaments/tournament-register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"tournaments",
+								"tournament-register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAllTournaments",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJkMzQ4YTExZC1hNjMwLTRhNjEtOWRhYS1iNDU3NzYyOWEzZWYiLCJlbWFpbCI6InBydXRoYTIyNTVAZ21haWwuY29tIiwiaWF0IjoxNzMyODU2MDIwLCJleHAiOjE3MzI5NDI0MjB9.hzPDQhFSG-faIOjTb36c-PKpFy4HbOTeCTHZO80iyHQ",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/v1/tournaments/get-all-tournaments?page=1&limit=2&sortBy=name&sortOrder=ASC",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"tournaments",
+								"get-all-tournaments"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "2"
+								},
+								{
+									"key": "sortBy",
+									"value": "name"
+								},
+								{
+									"key": "sortOrder",
+									"value": "ASC"
+								},
+								{
+									"key": "search",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-tournament-details",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJkMzQ4YTExZC1hNjMwLTRhNjEtOWRhYS1iNDU3NzYyOWEzZWYiLCJlbWFpbCI6InBydXRoYTIyNTVAZ21haWwuY29tIiwiaWF0IjoxNzMyMDc1Mzk5LCJleHAiOjE3MzIxNjE3OTl9.-UX9n4ExD8X25hvd-JyACNDUfQ5TuGc1aG_pe5QLXyY",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/v1/tournaments/get-tournament-details/5bd8dd7e-21f9-4823-a1c5-82b1816c2b50",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"tournaments",
+								"get-tournament-details",
+								"5bd8dd7e-21f9-4823-a1c5-82b1816c2b50"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update-tournament-details",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJkMzQ4YTExZC1hNjMwLTRhNjEtOWRhYS1iNDU3NzYyOWEzZWYiLCJlbWFpbCI6InBydXRoYTIyNTVAZ21haWwuY29tIiwiaWF0IjoxNzMyODU2MDIwLCJleHAiOjE3MzI5NDI0MjB9.hzPDQhFSG-faIOjTb36c-PKpFy4HbOTeCTHZO80iyHQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tournamentId\": \"18d48952-a8f0-4c29-b432-53dbeddbcbaa\",\r\n    \"name\": \"hockey\",\r\n    \"startDate\": \"2024-02-11\",\r\n    \"endDate\": \"2024-02-13\",\r\n    \"location\": \"surat\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/v1/tournaments/update-tournament-details",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"tournaments",
+								"update-tournament-details"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete-tournament",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJkMzQ4YTExZC1hNjMwLTRhNjEtOWRhYS1iNDU3NzYyOWEzZWYiLCJlbWFpbCI6InBydXRoYTIyNTVAZ21haWwuY29tIiwiaWF0IjoxNzMyODU2MDIwLCJleHAiOjE3MzI5NDI0MjB9.hzPDQhFSG-faIOjTb36c-PKpFy4HbOTeCTHZO80iyHQ",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/v1/tournaments/delete-tournament/18d48952-a8f0-4c29-b432-53dbeddbcbaa",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"tournaments",
+								"delete-tournament",
+								"18d48952-a8f0-4c29-b432-53dbeddbcbaa"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"userName\": \"Divya\",\r\n  \"email\": \"divya@gmail.com\",\r\n  \"password\": \"Divya@123\",\r\n  \"role\": \"viewer\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/v1/users/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"prutha2255@gmail.com\",\r\n    \"password\":\"prutha@123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/v1/users/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "logout",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJkMzQ4YTExZC1hNjMwLTRhNjEtOWRhYS1iNDU3NzYyOWEzZWYiLCJlbWFpbCI6InBydXRoYTIyNTVAZ21haWwuY29tIiwiaWF0IjoxNzMyODU1OTg4LCJleHAiOjE3MzI5NDIzODh9.iec1jjAiyKP5SN5d3bkKaWYHOvu0x6eA3DYHfh4Uuu4",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/v1/users/logout",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auction",
+			"item": [
+				{
+					"name": "startAuction",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJkMzQ4YTExZC1hNjMwLTRhNjEtOWRhYS1iNDU3NzYyOWEzZWYiLCJlbWFpbCI6InBydXRoYTIyNTVAZ21haWwuY29tIiwiaWF0IjoxNzMyODU2MDIwLCJleHAiOjE3MzI5NDI0MjB9.hzPDQhFSG-faIOjTb36c-PKpFy4HbOTeCTHZO80iyHQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tournamentId\": \"ba725282-f49a-47a3-afb6-977c882543b1\",\r\n    \"startTime\": \"2024-11-22T00:00:00Z\",\r\n    \"endTime\": \"2024-11-22T02:00:00Z\",\r\n    \"bidAmount\": \"100\",\r\n    \"playerId\": \"c2f2da62-8e34-4bb1-9ebe-abb79f74e407\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/v1/auctions/auction-start",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"auctions",
+								"auction-start"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "liveAuction",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJkMzQ4YTExZC1hNjMwLTRhNjEtOWRhYS1iNDU3NzYyOWEzZWYiLCJlbWFpbCI6InBydXRoYTIyNTVAZ21haWwuY29tIiwiaWF0IjoxNzMyODU2MDIwLCJleHAiOjE3MzI5NDI0MjB9.hzPDQhFSG-faIOjTb36c-PKpFy4HbOTeCTHZO80iyHQ",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/v1/auctions/live-auction",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"auctions",
+								"live-auction"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "endAuction",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJkMzQ4YTExZC1hNjMwLTRhNjEtOWRhYS1iNDU3NzYyOWEzZWYiLCJlbWFpbCI6InBydXRoYTIyNTVAZ21haWwuY29tIiwiaWF0IjoxNzMyODU2MDIwLCJleHAiOjE3MzI5NDI0MjB9.hzPDQhFSG-faIOjTb36c-PKpFy4HbOTeCTHZO80iyHQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"auctionId\": \"24359b8e-5131-4946-a0cc-c131da3b72c8\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/v1/auctions/end-auction",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"auctions",
+								"end-auction"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AuctionDetails",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJkMzQ4YTExZC1hNjMwLTRhNjEtOWRhYS1iNDU3NzYyOWEzZWYiLCJlbWFpbCI6InBydXRoYTIyNTVAZ21haWwuY29tIiwiaWF0IjoxNzMyODU2MDIwLCJleHAiOjE3MzI5NDI0MjB9.hzPDQhFSG-faIOjTb36c-PKpFy4HbOTeCTHZO80iyHQ",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/v1/auctions/auction-details/24359b8e-5131-4946-a0cc-c131da3b72c8",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"auctions",
+								"auction-details",
+								"24359b8e-5131-4946-a0cc-c131da3b72c8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "export_data",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJkMzQ4YTExZC1hNjMwLTRhNjEtOWRhYS1iNDU3NzYyOWEzZWYiLCJlbWFpbCI6InBydXRoYTIyNTVAZ21haWwuY29tIiwiaWF0IjoxNzMyODU2MDIwLCJleHAiOjE3MzI5NDI0MjB9.hzPDQhFSG-faIOjTb36c-PKpFy4HbOTeCTHZO80iyHQ",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/v1/auctions/export-data",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"auctions",
+								"export-data"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "download_csv",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJkMzQ4YTExZC1hNjMwLTRhNjEtOWRhYS1iNDU3NzYyOWEzZWYiLCJlbWFpbCI6InBydXRoYTIyNTVAZ21haWwuY29tIiwiaWF0IjoxNzMyODU2MDIwLCJleHAiOjE3MzI5NDI0MjB9.hzPDQhFSG-faIOjTb36c-PKpFy4HbOTeCTHZO80iyHQ",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/v1/auctions/download-csv",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"auctions",
+								"download-csv"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Bids",
+			"item": [
+				{
+					"name": "placeBid",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJkMzQ4YTExZC1hNjMwLTRhNjEtOWRhYS1iNDU3NzYyOWEzZWYiLCJlbWFpbCI6InBydXRoYTIyNTVAZ21haWwuY29tIiwiaWF0IjoxNzMyODU2MDIwLCJleHAiOjE3MzI5NDI0MjB9.hzPDQhFSG-faIOjTb36c-PKpFy4HbOTeCTHZO80iyHQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"auctionId\": \"24359b8e-5131-4946-a0cc-c131da3b72c8\",\r\n  \"teamId\": \"fcdb1ce1-88a7-4b64-8529-346969998fc8\",\r\n  \"playerId\":\"8d1dd154-2b6b-4476-905f-e30f03c19bcb\",\r\n  \"bidAmount\": \"50000\",\r\n  \"startTime\": \"2024-11-20T10:00:00Z\",\r\n  \"endTime\": \"2024-11-20T12:00:00Z\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/v1/bids/bid-player",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"bids",
+								"bid-player"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "bidStatus",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJkMzQ4YTExZC1hNjMwLTRhNjEtOWRhYS1iNDU3NzYyOWEzZWYiLCJlbWFpbCI6InBydXRoYTIyNTVAZ21haWwuY29tIiwiaWF0IjoxNzMyODU2MDIwLCJleHAiOjE3MzI5NDI0MjB9.hzPDQhFSG-faIOjTb36c-PKpFy4HbOTeCTHZO80iyHQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"bidId\": \"ea49a6da-fab4-4d1e-97fa-4c16f393a2df\",\r\n    \"status\": \"accepted\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/v1/bids/bid-status",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"bids",
+								"bid-status"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAllBids",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJkMzQ4YTExZC1hNjMwLTRhNjEtOWRhYS1iNDU3NzYyOWEzZWYiLCJlbWFpbCI6InBydXRoYTIyNTVAZ21haWwuY29tIiwiaWF0IjoxNzMyODU2MDIwLCJleHAiOjE3MzI5NDI0MjB9.hzPDQhFSG-faIOjTb36c-PKpFy4HbOTeCTHZO80iyHQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/v1/bids/get-all-bids/24359b8e-5131-4946-a0cc-c131da3b72c8?page=2&limit=2&sortBy=status&sortOrder=ASC&search=pending",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"bids",
+								"get-all-bids",
+								"24359b8e-5131-4946-a0cc-c131da3b72c8"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "2"
+								},
+								{
+									"key": "limit",
+									"value": "2"
+								},
+								{
+									"key": "sortBy",
+									"value": "status"
+								},
+								{
+									"key": "sortOrder",
+									"value": "ASC"
+								},
+								{
+									"key": "search",
+									"value": "pending"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "bidDetails",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJkMzQ4YTExZC1hNjMwLTRhNjEtOWRhYS1iNDU3NzYyOWEzZWYiLCJlbWFpbCI6InBydXRoYTIyNTVAZ21haWwuY29tIiwiaWF0IjoxNzMyODU2MDIwLCJleHAiOjE3MzI5NDI0MjB9.hzPDQhFSG-faIOjTb36c-PKpFy4HbOTeCTHZO80iyHQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/v1/bids/get-bid-details/014f4218-72e5-4e99-96f8-0d8969a57477",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"bids",
+								"get-bid-details",
+								"014f4218-72e5-4e99-96f8-0d8969a57477"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Teams",
+			"item": [
+				{
+					"name": "createTeam",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJkMzQ4YTExZC1hNjMwLTRhNjEtOWRhYS1iNDU3NzYyOWEzZWYiLCJlbWFpbCI6InBydXRoYTIyNTVAZ21haWwuY29tIiwiaWF0IjoxNzMyODU2MDIwLCJleHAiOjE3MzI5NDI0MjB9.hzPDQhFSG-faIOjTb36c-PKpFy4HbOTeCTHZO80iyHQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"RCB\",\r\n    \"userId\": \"4bcbb5a9-ee8d-4757-86ce-f8289ba20ec0\",\r\n    \"logo\": \"rcb\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/v1/teams/create-team",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"teams",
+								"create-team"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAllTeams",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJkMzQ4YTExZC1hNjMwLTRhNjEtOWRhYS1iNDU3NzYyOWEzZWYiLCJlbWFpbCI6InBydXRoYTIyNTVAZ21haWwuY29tIiwiaWF0IjoxNzMyODU2MDIwLCJleHAiOjE3MzI5NDI0MjB9.hzPDQhFSG-faIOjTb36c-PKpFy4HbOTeCTHZO80iyHQ",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/v1/teams/get-all-teams?page=1&limit=2&sortBy=status&sortOrder=ASC&search=M",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"teams",
+								"get-all-teams"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "2"
+								},
+								{
+									"key": "sortBy",
+									"value": "status"
+								},
+								{
+									"key": "sortOrder",
+									"value": "ASC"
+								},
+								{
+									"key": "search",
+									"value": "M"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getTeamDetails",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJkMzQ4YTExZC1hNjMwLTRhNjEtOWRhYS1iNDU3NzYyOWEzZWYiLCJlbWFpbCI6InBydXRoYTIyNTVAZ21haWwuY29tIiwiaWF0IjoxNzMyODU2MDIwLCJleHAiOjE3MzI5NDI0MjB9.hzPDQhFSG-faIOjTb36c-PKpFy4HbOTeCTHZO80iyHQ",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/v1/teams/get-team-details/fed5813f-99af-4476-a295-08fdc38cff14",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"teams",
+								"get-team-details",
+								"fed5813f-99af-4476-a295-08fdc38cff14"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateTeamDetails",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJkMzQ4YTExZC1hNjMwLTRhNjEtOWRhYS1iNDU3NzYyOWEzZWYiLCJlbWFpbCI6InBydXRoYTIyNTVAZ21haWwuY29tIiwiaWF0IjoxNzMyODU2MDIwLCJleHAiOjE3MzI5NDI0MjB9.hzPDQhFSG-faIOjTb36c-PKpFy4HbOTeCTHZO80iyHQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Mumbai-Indians\",\r\n    \"userId\": \"4bcbb5a9-ee8d-4757-86ce-f8289ba20ec0\",\r\n    \"logo\": \"mi\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/v1/teams/update-team-details/fed5813f-99af-4476-a295-08fdc38cff14",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"teams",
+								"update-team-details",
+								"fed5813f-99af-4476-a295-08fdc38cff14"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteTeam",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJkMzQ4YTExZC1hNjMwLTRhNjEtOWRhYS1iNDU3NzYyOWEzZWYiLCJlbWFpbCI6InBydXRoYTIyNTVAZ21haWwuY29tIiwiaWF0IjoxNzMyODU2MDIwLCJleHAiOjE3MzI5NDI0MjB9.hzPDQhFSG-faIOjTb36c-PKpFy4HbOTeCTHZO80iyHQ",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/v1/teams/delete-team/fed5813f-99af-4476-a295-08fdc38cff14",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"teams",
+								"delete-team",
+								"fed5813f-99af-4476-a295-08fdc38cff14"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "addPlayerToTeam",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJkMzQ4YTExZC1hNjMwLTRhNjEtOWRhYS1iNDU3NzYyOWEzZWYiLCJlbWFpbCI6InBydXRoYTIyNTVAZ21haWwuY29tIiwiaWF0IjoxNzMyODU2MDIwLCJleHAiOjE3MzI5NDI0MjB9.hzPDQhFSG-faIOjTb36c-PKpFy4HbOTeCTHZO80iyHQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"playerId\": [\"851e8b2e-b6d8-46e5-9f64-391b8332671e\",\"3f8e5e2a-8860-4aa2-aba6-a4f081cd22aa\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/v1/teams/add-player/fed5813f-99af-4476-a295-08fdc38cff14",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"teams",
+								"add-player",
+								"fed5813f-99af-4476-a295-08fdc38cff14"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Team_Tournament",
+			"item": [
+				{
+					"name": "Fetch all teams participating in a specific tournament",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJkMzQ4YTExZC1hNjMwLTRhNjEtOWRhYS1iNDU3NzYyOWEzZWYiLCJlbWFpbCI6InBydXRoYTIyNTVAZ21haWwuY29tIiwiaWF0IjoxNzMyODU2MDIwLCJleHAiOjE3MzI5NDI0MjB9.hzPDQhFSG-faIOjTb36c-PKpFy4HbOTeCTHZO80iyHQ",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/v1/tournaments/get-teams/ba725282-f49a-47a3-afb6-977c882543b1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"tournaments",
+								"get-teams",
+								"ba725282-f49a-47a3-afb6-977c882543b1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AddTeamToTournament",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJkMzQ4YTExZC1hNjMwLTRhNjEtOWRhYS1iNDU3NzYyOWEzZWYiLCJlbWFpbCI6InBydXRoYTIyNTVAZ21haWwuY29tIiwiaWF0IjoxNzMyODU2MDIwLCJleHAiOjE3MzI5NDI0MjB9.hzPDQhFSG-faIOjTb36c-PKpFy4HbOTeCTHZO80iyHQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"teamIds\": [\"ee90e29e-a028-46ea-8b96-1eb07905f029\",\r\n    \"1f58f908-8c0b-4865-85ab-46e556080210\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/v1/tournaments/add-team/a9de4a9f-fa6a-40cf-bebb-285ff80dc0f3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"tournaments",
+								"add-team",
+								"a9de4a9f-fa6a-40cf-bebb-285ff80dc0f3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Tournaments for a Team",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJkMzQ4YTExZC1hNjMwLTRhNjEtOWRhYS1iNDU3NzYyOWEzZWYiLCJlbWFpbCI6InBydXRoYTIyNTVAZ21haWwuY29tIiwiaWF0IjoxNzMyODU2MDIwLCJleHAiOjE3MzI5NDI0MjB9.hzPDQhFSG-faIOjTb36c-PKpFy4HbOTeCTHZO80iyHQ",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/v1/tournaments/get-tournaments/fcdb1ce1-88a7-4b64-8529-346969998fc8",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"tournaments",
+								"get-tournaments",
+								"fcdb1ce1-88a7-4b64-8529-346969998fc8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update_team_tournament",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJkMzQ4YTExZC1hNjMwLTRhNjEtOWRhYS1iNDU3NzYyOWEzZWYiLCJlbWFpbCI6InBydXRoYTIyNTVAZ21haWwuY29tIiwiaWF0IjoxNzMyODU2MDIwLCJleHAiOjE3MzI5NDI0MjB9.hzPDQhFSG-faIOjTb36c-PKpFy4HbOTeCTHZO80iyHQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"teamId\": \"fcdb1ce1-88a7-4b64-8529-346969998fc8\",\r\n    \"tournamentId\": \"aa657d23-ae36-46b6-8e48-32b3e9e36faf\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/v1/tournaments/update-team-tournaments/ea356712-ba45-42ad-a9c4-3601e20ad16d",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"tournaments",
+								"update-team-tournaments",
+								"ea356712-ba45-42ad-a9c4-3601e20ad16d"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Admin",
+			"item": [
+				{
+					"name": "adminStatistics",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJkMzQ4YTExZC1hNjMwLTRhNjEtOWRhYS1iNDU3NzYyOWEzZWYiLCJlbWFpbCI6InBydXRoYTIyNTVAZ21haWwuY29tIiwiaWF0IjoxNzMyODU2MDIwLCJleHAiOjE3MzI5NDI0MjB9.hzPDQhFSG-faIOjTb36c-PKpFy4HbOTeCTHZO80iyHQ",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/v1/admin/admin-statistics",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"admin",
+								"admin-statistics"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Bid_History",
+			"item": [
+				{
+					"name": "get_bidHistory_by_teams",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJkMzQ4YTExZC1hNjMwLTRhNjEtOWRhYS1iNDU3NzYyOWEzZWYiLCJlbWFpbCI6InBydXRoYTIyNTVAZ21haWwuY29tIiwiaWF0IjoxNzMyODU2MDIwLCJleHAiOjE3MzI5NDI0MjB9.hzPDQhFSG-faIOjTb36c-PKpFy4HbOTeCTHZO80iyHQ",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/v1/bid-history/get-bid-by-teams/fcdb1ce1-88a7-4b64-8529-346969998fc8",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"bid-history",
+								"get-bid-by-teams",
+								"fcdb1ce1-88a7-4b64-8529-346969998fc8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create_bidHistory",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJkMzQ4YTExZC1hNjMwLTRhNjEtOWRhYS1iNDU3NzYyOWEzZWYiLCJlbWFpbCI6InBydXRoYTIyNTVAZ21haWwuY29tIiwiaWF0IjoxNzMyODU2MDIwLCJleHAiOjE3MzI5NDI0MjB9.hzPDQhFSG-faIOjTb36c-PKpFy4HbOTeCTHZO80iyHQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"auctionId\": \"7655671f-b9e9-4bfe-8bec-44b862a3ea3c\",\r\n    \"teamId\": \"fed5813f-99af-4476-a295-08fdc38cff14\",\r\n    \"playerId\": \"3f8e5e2a-8860-4aa2-aba6-a4f081cd22aa\",\r\n    \"bidAmount\":\"100000\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/v1/bid-history/create-bid-history",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"bid-history",
+								"create-bid-history"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_bidHistory_by_auction",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJkMzQ4YTExZC1hNjMwLTRhNjEtOWRhYS1iNDU3NzYyOWEzZWYiLCJlbWFpbCI6InBydXRoYTIyNTVAZ21haWwuY29tIiwiaWF0IjoxNzMyODU2MDIwLCJleHAiOjE3MzI5NDI0MjB9.hzPDQhFSG-faIOjTb36c-PKpFy4HbOTeCTHZO80iyHQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/v1/bid-history/get-bid-by-auction/7655671f-b9e9-4bfe-8bec-44b862a3ea3c",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"bid-history",
+								"get-bid-by-auction",
+								"7655671f-b9e9-4bfe-8bec-44b862a3ea3c"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_bidHistory_by_player",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJkMzQ4YTExZC1hNjMwLTRhNjEtOWRhYS1iNDU3NzYyOWEzZWYiLCJlbWFpbCI6InBydXRoYTIyNTVAZ21haWwuY29tIiwiaWF0IjoxNzMyODU2MDIwLCJleHAiOjE3MzI5NDI0MjB9.hzPDQhFSG-faIOjTb36c-PKpFy4HbOTeCTHZO80iyHQ",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/v1/bid-history/get-bid-by-player/3f8e5e2a-8860-4aa2-aba6-a4f081cd22aa",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"bid-history",
+								"get-bid-by-player",
+								"3f8e5e2a-8860-4aa2-aba6-a4f081cd22aa"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "bidHistoryOfPlayer",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJkMzQ4YTExZC1hNjMwLTRhNjEtOWRhYS1iNDU3NzYyOWEzZWYiLCJlbWFpbCI6InBydXRoYTIyNTVAZ21haWwuY29tIiwiaWF0IjoxNzMyODU2MDIwLCJleHAiOjE3MzI5NDI0MjB9.hzPDQhFSG-faIOjTb36c-PKpFy4HbOTeCTHZO80iyHQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"playerId\": \"c2f2da62-8e34-4bb1-9ebe-abb79f74e407\",\r\n    \"auctionId\": \"24359b8e-5131-4946-a0cc-c131da3b72c8\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/v1/bid-history/create-bid",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"bid-history",
+								"create-bid"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

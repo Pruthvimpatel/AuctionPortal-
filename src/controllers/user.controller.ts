@@ -8,6 +8,8 @@ import {generateAccessToken,generateRefreshToken} from '../utils/jwt.token'
 import encryption from '../utils/encryption';
 import User from '../models/user.model';
 import {ERROR_MESSAGES,SUCCESS_MESSAGES} from  '../constants/message';
+import uploadOnCloudinary from '../utils/cloudinary';
+
 
 interface MyUserRequest extends Request {
     token?: string;
@@ -147,3 +149,31 @@ export const logout  = asyncHandler(async(req:MyUserRequest,res:Response,next:Ne
     }
  });
 
+//upload profile photo
+export const uploadProfile = asyncHandler(async(req:MyUserRequest,res:Response,next:NextFunction) => {
+    const profilePicture = req.file?.path;
+    console.log("profilePicture",profilePicture)
+    const user = req.user;
+    if (!user) {
+      return next(new ApiError(404, ERROR_MESSAGES.USER_NOT_FOUND));
+  }
+  if(!profilePicture) {
+    return next(new ApiError(404, ERROR_MESSAGES.FILE_REQUIRED));
+  }
+  try {
+    const profile = await uploadOnCloudinary(profilePicture);
+    if(!profile || !profile.url) {
+      return next(new ApiError(404, ERROR_MESSAGES.PROFILE_UPLOAD_FAILED));
+    }
+  
+    user.profilePicture = profile.url;
+    await user.save();
+  
+    const response = new ApiResponse(200,SUCCESS_MESSAGES.PROFILE_UPLOAD_SUCCESSFULLY);
+    res.status(200).json(response);    
+  } catch(error) {
+    console.error(ERROR_MESSAGES.SOMETHING_ERROR);
+    return next(new ApiError(500,ERROR_MESSAGES.SOMETHING_ERROR));
+}
+  
+});

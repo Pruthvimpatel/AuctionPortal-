@@ -81,7 +81,7 @@ import Sequelize, {
     Auction.associate = models => {
         Auction.belongsTo(models.Tournament, { foreignKey: 'tournamentId' });
         Auction.hasMany(models.Bid, { foreignKey: 'auctionId' });
-        Auction.belongsTo(models.Player, { foreignKey: 'playerId' });
+        Auction.belongsTo(models.Player, { foreignKey: 'playerId' ,as: 'player'});
     };
   
     return Auction;

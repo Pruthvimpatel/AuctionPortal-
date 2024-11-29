@@ -65,6 +65,7 @@ export const liveAuction = asyncHandler(async(req:MyUserRequest,res:Response,nex
             include: [
                 {
                     model: db.Player,
+                    as: 'player',
                 },
             ],
         });
@@ -165,7 +166,8 @@ const user = req.user;
     },
     include: [
       {
-        model:db.Player
+        model:db.Player,
+        as: 'player',
       },
       {
         model: db.Tournament

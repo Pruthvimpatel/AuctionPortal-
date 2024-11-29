@@ -144,3 +144,63 @@ export const getBidByPlayer = asyncHandler(async(req:MyUserRequest,res:Response,
    }
 })
 
+
+// Create Bid History for All Teams for a Player
+export const createBidsForPlayer = asyncHandler(async(req:MyUserRequest,res:Response,next: NextFunction)=> {
+  const user = req.user;
+  if(!user) {
+    return next(new ApiError(401,ERROR_MESSAGES.USER_NOT_FOUND));
+  }
+
+  const {playerId,auctionId} = req.body
+  if (!playerId || !auctionId) {
+    return next(new ApiError(400, ERROR_MESSAGES.ALL_FIELDS_REQUIRED));
+  }
+  try {
+   const fetchedBids = await db.Bid.findAll({
+    where:{
+        playerId,
+        auctionId
+    },
+    attributes: ['auctionId','teamId', 'bidAmount', 'playerId'],
+    include: [
+        {
+          model: db.Team,
+          attributes: ['name'],
+        },
+        {
+          model: db.Auction,
+        },
+        {
+            model:db.Player
+        }
+      ],
+   });
+
+    if (fetchedBids.length === 0) {
+      return next(new ApiError(404, ERROR_MESSAGES.NO_BID_FOUND));
+    }
+   
+    const bidHistories = await fetchedBids.map((bid) => ({
+        auctionId: bid.auctionId,
+        teamId: bid.teamId,
+        playerId:bid.playerId,
+        bidAmount: bid.bidAmount,
+      }));
+
+      const newBidHistories = await db.BidHistory.bulkCreate(bidHistories);
+      if (!newBidHistories) {
+    return next(new ApiError(401, ERROR_MESSAGES.NO_BID_HISTORY_FOUND));
+  }
+
+    const response = new ApiResponse(201,newBidHistories,SUCCESS_MESSAGES.BID_HISTORY_CREATED_SUCCESSFULLY);
+    res.status(201).json(response);
+  }catch(error) {
+    console.log(error);
+    return next(new ApiError(401, ERROR_MESSAGES.INTERNAL_SERVER_ERROR));
+  }
+
+})
+
+
+
