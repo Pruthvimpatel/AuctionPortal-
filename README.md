@@ -86,10 +86,10 @@ The route prefix is /api/v1 by default.
 | **src/types/**                | Common Type folder |
 | **src/validation/**           | Custom validators, which can be used in the request classes |
 | **src/utils/**                | store utility functions and helper modules |
-| **src/app.ts/**               | app file  |
-| **src/index.ts/**             | index file|
-| **src/sequelize-client/**     | sequelize-client |
-| .env                          | Environment configurations |
-| .env.sample                   | Environment configurations |
+| **src/app.ts/**               | Configures the Express server, routes, middleware, Socket.IO, and error handling for the Auction Portal.  |
+| **src/index.ts/**             |  Establishes a database connection, synchronizes models, and starts the server on the specified port.|
+| **src/sequelize-client/**     | Initializes Sequelize with database configurations, defines models, and sets up their associations. |
+| .env                          | Environment configuration |
+| .env.sample                   | Provides a template for environment variables required to configure the application |
 
 
