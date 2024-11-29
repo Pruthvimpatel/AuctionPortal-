@@ -1,9 +1,6 @@
 # AuctionPortal-
 Creating the Auction portal using socket.io
 AUCTION PORTAL
-Auction Portal allows users to participate in a dynamic auction system for players in a cricket tournament. Team owners can bid for players, creating a lively and competitive environment to build their dream teams. The portal facilitates player registration, team owner management, tournament creation, and live auction management, offering an engaging platform for managing cricket auctions.
---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-## ❯ Table of Contents
 - [Getting Started](#-getting-started)
 - [Scripts and Tasks](#-scripts-and-tasks)
 - [API Routes](#-api-routes)
