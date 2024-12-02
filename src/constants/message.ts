@@ -40,7 +40,8 @@ export const ERROR_MESSAGES = {
     BID_TOO_LOW: 'Bid too low',
     AUCTION_ID_REQUIRED: 'Auction Id is required',
     INVALID_BID_AMOUNT: 'Invalid bid amount',
-    PENDING_PLAYERS_LEFT: 'Players are left for auction.'
+    PENDING_PLAYERS_LEFT: 'Players are left for auction.',
+    NO_WINNING_BID: 'no winning bid for player'
   };
   
   export const SUCCESS_MESSAGES = {

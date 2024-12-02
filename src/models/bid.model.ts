@@ -96,7 +96,7 @@ import User from './user.model';
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     Bid.associate = models => {
     Bid.belongsTo(models.Auction, { foreignKey: 'auctionId' });
-    Bid.belongsTo(models.Team, { foreignKey: 'teamId' });
+    Bid.belongsTo(models.Team, { foreignKey: 'teamId', as: 'team' });
     Bid.belongsTo(models.User, { foreignKey: 'userId' });
     Bid.belongsTo(models.Player, { foreignKey: 'playerId' });
 

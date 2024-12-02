@@ -1,6 +1,8 @@
 import {Server, Socket} from 'socket.io';
 import db from '../sequelize-client';
 import {ERROR_MESSAGES,SUCCESS_MESSAGES} from  '../constants/message';
+import Bid from '../models/bid.model';
+import Team from '../models/team.model';
 
 interface StartAuctionData {
   tournamentId: string;
@@ -266,7 +268,7 @@ if (!team) {
           model: db.Player,
           as: 'player',
           attributes: ['id','name'],
-        },
+        }, 
       ],
     });
 
@@ -283,11 +285,29 @@ if (!team) {
       status: 'pending',
     }
   });
-  console.log("pendingAuctions",pendingAuctions);
 
   if(pendingAuctions > 0) {
     socket.emit('errorMessage',ERROR_MESSAGES.PENDING_PLAYERS_LEFT);
       return;
+  }
+   const winningBid = await db.Bid.findOne({
+    where: {
+      auctionId,
+    },
+    include: [
+     {
+      model: db.Team,
+      as: 'team',
+      attributes: ['id', 'name', 'logo'],
+      },
+    ],
+   })as (Bid & { team: Team }) | null;
+
+   const team = winningBid ? winningBid.team : null;
+
+   if (!winningBid || !winningBid.team) {
+    socket.emit('errorMessage', ERROR_MESSAGES.NO_WINNING_BID);
+    return;
   }
 
   auction.status = 'accepted';
@@ -296,7 +316,12 @@ if (!team) {
   //Emit success message
   const response = {
     message: SUCCESS_MESSAGES.AUCTION_END_SUCCESSFULLY,
-    auction
+    auction: {
+      id: auction.id,
+      status: auction.status,
+      player: auction.playerId,
+      winingTeam: team,
+    },
   };
    socket.emit('auctionEnded',response);
    io.emit('auctionEnded',response);
