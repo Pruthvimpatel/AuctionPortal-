@@ -3,6 +3,7 @@ import ApiError from '../utils/api-error';
 import ApiResponse from '../utils/api-response';
 import asyncHandler from '../utils/async-handler';
 import db  from '../sequelize-client';
+import logger from '../logger';
 
 import User from '../models/user.model';
 import {ERROR_MESSAGES,SUCCESS_MESSAGES} from  '../constants/message';
@@ -73,7 +74,7 @@ await bid.save();
 const response = new ApiResponse(200,bid,SUCCESS_MESSAGES.BID_STATUS_UPDATED_SUCCESSFULLY);
 res.status(200).json(response);
 } catch(error) {
-    console.log(error);
+    logger.error(error);
     return next(new ApiError(500,ERROR_MESSAGES.INTERNAL_SERVER_ERROR));
 }
 });
@@ -139,7 +140,7 @@ const response = new ApiResponse(
     SUCCESS_MESSAGES.BIDS_FETCHED_SUCCESSFULLY
   );res.status(200).json(response);
  }catch(error){
-    console.log(error);
+    logger.error(error);
     return next(new ApiError(500,ERROR_MESSAGES.INTERNAL_SERVER_ERROR));
  }
 });
@@ -156,7 +157,7 @@ export const getBidById = asyncHandler(async(req:MyUserRequest,res:Response,next
     const response = new ApiResponse(200,bid,SUCCESS_MESSAGES.BIDS_FETCHED_SUCCESSFULLY);
     res.status(200).json(response);
     } catch(error) {
-        console.log(error);
+        logger.error(error);
         return next(new ApiError(500,ERROR_MESSAGES.INTERNAL_SERVER_ERROR));
     }
 });

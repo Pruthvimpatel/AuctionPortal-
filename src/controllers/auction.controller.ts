@@ -8,6 +8,8 @@ import User from '../models/user.model';
 import {ERROR_MESSAGES,SUCCESS_MESSAGES} from  '../constants/message';
 import { createObjectCsvWriter } from 'csv-writer';
 import { sendEmail } from '../utils/mailer';
+import logger from '../logger';
+
 interface MyUserRequest extends Request {
     token?: string;
     user?: User;
@@ -45,7 +47,7 @@ export const startAuction = asyncHandler(async(req:MyUserRequest,res:Response,ne
     const response = new ApiResponse(201,auction,SUCCESS_MESSAGES.AUCTION_START_SUCCESSFULLY);
     res.status(201).json(response);
   }catch(error){
-    console.log(error);
+    logger.error(error);
     return next(new ApiError(500,ERROR_MESSAGES.INTERNAL_SERVER_ERROR))
   }
 });
@@ -87,8 +89,8 @@ export const liveAuction = asyncHandler(async(req:MyUserRequest,res:Response,nex
         highestBid,
       });
     } catch(error) {
-        console.log(error);
-        return next(new ApiError(500,ERROR_MESSAGES.INTERNAL_SERVER_ERROR))
+      logger.error(error);
+      return next(new ApiError(500,ERROR_MESSAGES.INTERNAL_SERVER_ERROR))
     }
 
 });
@@ -133,9 +135,9 @@ export const endAuction = asyncHandler(async(req:MyUserRequest,res:Response,next
     //send email to the highest bidder
     const emailSubject = 'Auction Won Notification';
     const emailBody = `Congratulations! You have won the auction for Auction ID: ${auctionId}. Your bid amount was ${highestBid.bidAmount}.`;
-    console.log(`Sending email to: ${highestBid.User.email}`);
-    console.log(`Email Subject: ${emailSubject}`);
-    console.log(`Email Body: ${emailBody}`);
+    logger.info(`Sending email to: ${highestBid.User.email}`);
+    logger.info(`Email Subject: ${emailSubject}`);
+    logger.info(`Email Body: ${emailBody}`);
     await sendEmail({
       to: highestBid.User.email,
       subject: emailSubject,
@@ -146,7 +148,7 @@ export const endAuction = asyncHandler(async(req:MyUserRequest,res:Response,next
    const response = new ApiResponse(200, auction, SUCCESS_MESSAGES.AUCTION_END_SUCCESSFULLY);
     res.status(200).json(response);
    } catch(error) {
-    console.log(error);
+    logger.error(error);
     return next(new ApiError(500, ERROR_MESSAGES.INTERNAL_SERVER_ERROR));
    }
 });
@@ -186,7 +188,7 @@ const user = req.user;
     const response = new ApiResponse(200,auction,SUCCESS_MESSAGES.AUCTION_DETAILS_FETCHED)
     res.status(200).json(response);
   } catch(error) {
-    console.log(error);
+    logger.error(error);
     return next(new ApiError(500,ERROR_MESSAGES.INTERNAL_SERVER_ERROR));
   }
 });
@@ -209,7 +211,7 @@ export const getTopBidders = asyncHandler(async(req:MyUserRequest,res:Response,n
     const response = new ApiResponse(200,topBidders,SUCCESS_MESSAGES.TOP_BIDDERS_FETCHED)
     res.status(200).json(response);
   } catch(error) {
-    console.log(error);
+    logger.error(error);
     return next(new ApiError(500,ERROR_MESSAGES.INTERNAL_SERVER_ERROR));
   }
 });
@@ -264,7 +266,7 @@ export const exportAuctionData = asyncHandler(async(req:MyUserRequest,res:Respon
    res.status(200).send(response);
    
   }catch(error){
-    console.log(error);
+    logger.error(error);
     return next(new ApiError(500,ERROR_MESSAGES.INTERNAL_SERVER_ERROR));
   }
 });
@@ -292,7 +294,7 @@ export const downloadExportedAuctionData = asyncHandler(async(req:MyUserRequest,
       fs.unlinkSync(filePath);
     });
   }catch(error) {
-    console.log(error);
+    logger.error(error);
     return next(new ApiError(500,ERROR_MESSAGES.INTERNAL_SERVER_ERROR));
   }
 });

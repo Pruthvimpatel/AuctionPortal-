@@ -3,6 +3,7 @@ import ApiError from '../utils/api-error';
 import ApiResponse from '../utils/api-response';
 import asyncHandler from '../utils/async-handler';
 import db  from '../sequelize-client';
+import logger from '../logger';
 
 import User from '../models/user.model';
 import {ERROR_MESSAGES,SUCCESS_MESSAGES} from  '../constants/message';
@@ -35,7 +36,7 @@ interface MyUserRequest extends Request {
      const response = new ApiResponse(201,newTeam,SUCCESS_MESSAGES.TEAM_CREATED_SUCCESSFULLY);
      res.status(201).json(response);
     }catch(error) {
-        console.log(error);
+        logger.error(error);
         return next(new ApiError(500,ERROR_MESSAGES.INTERNAL_SERVER_ERROR));
  
     }
@@ -63,8 +64,6 @@ interface MyUserRequest extends Request {
 
   const orderBy = validSortColumns.includes(sortBy as string) ? (sortBy as string) : 'name';
   const order = validSortOrders.includes(sortOrder as string) ? (sortOrder as string) : 'ASC';
-
-
     try {
 const { rows: team, count: totalTeams } = await db.Team.findAndCountAll({
         where: searchFilter,
@@ -90,7 +89,7 @@ const { rows: team, count: totalTeams } = await db.Team.findAndCountAll({
     res.status(200).json(response);
 
     } catch(error) {
-        console.log(error);
+        logger.error(error);
         return next(new ApiError(500,ERROR_MESSAGES.INTERNAL_SERVER_ERROR));
     }
 
@@ -121,7 +120,7 @@ const response = new ApiResponse(200,teamDetails,SUCCESS_MESSAGES.TEAM_DETAILS_F
 res.status(200).json(response);
 
    } catch(error) {
-    console.log(error);
+    logger.error(error);
     return next(new ApiError(500,ERROR_MESSAGES.INTERNAL_SERVER_ERROR));
    }
  })
@@ -149,7 +148,7 @@ res.status(200).json(response);
 
         res.status(200).json(response);
     } catch(error) {
-        console.log(error);
+        logger.error(error);
         return next(new ApiError(500,ERROR_MESSAGES.INTERNAL_SERVER_ERROR));
     }
 
@@ -174,7 +173,7 @@ res.status(200).json(response);
         const response = new ApiResponse(200,teamDetails,SUCCESS_MESSAGES.TEAM_DELETED_SUCCESSFULLY);
         res.status(200).json(response);
     } catch(error) {
-        console.log(error);
+        logger.error(error);
         return next(new ApiError(500,ERROR_MESSAGES.INTERNAL_SERVER_ERROR));
     }
  });
@@ -215,7 +214,7 @@ try {
     const response = new ApiResponse(200,player,SUCCESS_MESSAGES.PLAYER_ADDED_TO_TEAM_SUCCESSFULLY);
     res.status(200).json(response);
 } catch(error) {
-    console.log(error);
+    logger.error(error);
     return next(new ApiError(500,ERROR_MESSAGES.INTERNAL_SERVER_ERROR));
 }
 

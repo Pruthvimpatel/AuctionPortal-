@@ -9,6 +9,7 @@ import encryption from '../utils/encryption';
 import User from '../models/user.model';
 import {ERROR_MESSAGES,SUCCESS_MESSAGES} from  '../constants/message';
 import uploadOnCloudinary from '../utils/cloudinary';
+import logger from '../logger';
 
 
 interface MyUserRequest extends Request {
@@ -49,7 +50,7 @@ interface MyUserRequest extends Request {
      res.status(201).json(response);
 
     }catch(error) {
-        console.log(error);
+        logger.error(error);
         return next(new ApiError(500,ERROR_MESSAGES.INTERNAL_SERVER_ERROR));
     }
  })
@@ -107,7 +108,7 @@ interface MyUserRequest extends Request {
       const response = new ApiResponse(201,{accessToken,user},SUCCESS_MESSAGES.USER_LOGIN_SUCCESSFULLY);
       res.status(200).send(response);
     } catch(error) {
-      console.error(ERROR_MESSAGES.SOMETHING_ERROR, error);
+      logger.error(ERROR_MESSAGES.SOMETHING_ERROR, error);
       return next(new ApiError(500, ERROR_MESSAGES.INTERNAL_SERVER_ERROR, [error]));
     }
 })
@@ -144,7 +145,7 @@ export const logout  = asyncHandler(async(req:MyUserRequest,res:Response,next:Ne
    res.status(200).json(response);
  
     }catch (error) {
-     console.error(ERROR_MESSAGES.SOMETHING_ERROR);
+     logger.error(ERROR_MESSAGES.SOMETHING_ERROR);
      return next(new ApiError(500,ERROR_MESSAGES.SOMETHING_ERROR));
     }
  });
@@ -172,7 +173,7 @@ export const uploadProfile = asyncHandler(async(req:MyUserRequest,res:Response,n
     const response = new ApiResponse(200,SUCCESS_MESSAGES.PROFILE_UPLOAD_SUCCESSFULLY);
     res.status(200).json(response);    
   } catch(error) {
-    console.error(ERROR_MESSAGES.SOMETHING_ERROR);
+    logger.error(ERROR_MESSAGES.SOMETHING_ERROR);
     return next(new ApiError(500,ERROR_MESSAGES.SOMETHING_ERROR));
 }
   

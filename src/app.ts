@@ -8,6 +8,7 @@ import router from './routes/index.route';
 import {REST_API_PREFIX} from './constants/routes.constants'
 import apiLimiter from './middleware/rate-limit';
 import http from 'http';
+import logger from './logger';
 
 const app = express();
 app.use(express.json());
@@ -38,10 +39,10 @@ app.use((err: any, req: any,res: any, next: any) => {
 });
 
 io.on('connection', (socket) => {
-    console.log('New socket connection:', socket.id);
+    logger.info('New socket connection:', socket.id);
     
     socket.on('connect_error', (error) => {
-      console.error('Socket connection error:', error);
+      logger.error('Socket connection error:', error);
     });
   });
 

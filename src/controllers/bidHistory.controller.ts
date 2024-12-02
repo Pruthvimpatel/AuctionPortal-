@@ -6,7 +6,7 @@ import db  from '../sequelize-client';
 
 import User from '../models/user.model';
 import {ERROR_MESSAGES,SUCCESS_MESSAGES} from  '../constants/message';
-import { Op, Sequelize } from 'sequelize';
+import logger from '../logger';
 
 interface MyUserRequest extends Request {
     token?: string;
@@ -39,8 +39,8 @@ export const createBidHistory = asyncHandler(async(req:MyUserRequest,res:Respons
         const response = new ApiResponse(201,newBidHistory,SUCCESS_MESSAGES.BID_HISTORY_CREATED_SUCCESSFULLY);
         res.status(201).json(response);
     } catch(error) {
-        console.log(error);
-        return next(new ApiError(401,ERROR_MESSAGES.INTERNAL_SERVER_ERROR));
+      logger.error(error);
+      return next(new ApiError(401,ERROR_MESSAGES.INTERNAL_SERVER_ERROR));
     }
 })
 
@@ -69,8 +69,8 @@ export const createBidHistory = asyncHandler(async(req:MyUserRequest,res:Respons
     const response = new ApiResponse(200,bidHistory,SUCCESS_MESSAGES.BID_HISTORY_RETRIEVED)
     res.status(200).json(response);
     }catch(error) {
-        console.log(error);
-        return next(new ApiError(401,ERROR_MESSAGES.INTERNAL_SERVER_ERROR));
+      logger.error(error);
+      return next(new ApiError(401,ERROR_MESSAGES.INTERNAL_SERVER_ERROR));
     }
  })
 
@@ -98,8 +98,8 @@ export const createBidHistory = asyncHandler(async(req:MyUserRequest,res:Respons
    const response = new ApiResponse(200,bidHistory,SUCCESS_MESSAGES.BID_HISTORY_RETRIEVED)
    res.status(200).json(response);
    }catch(error) {
-       console.log(error);
-       return next(new ApiError(401,ERROR_MESSAGES.INTERNAL_SERVER_ERROR));
+    logger.error(error);
+    return next(new ApiError(401,ERROR_MESSAGES.INTERNAL_SERVER_ERROR));
    }
 })
 
@@ -130,7 +130,6 @@ export const getBidByPlayer = asyncHandler(async(req:MyUserRequest,res:Response,
         ]
     });
 
-    console.log("bid",bids)
     if(!bids) {
         return next(new ApiError(401,ERROR_MESSAGES.NO_BID_HISTORY_FOUND));
     }
@@ -139,7 +138,7 @@ export const getBidByPlayer = asyncHandler(async(req:MyUserRequest,res:Response,
     res.status(200).json(response);
 
    }catch(error) {
-    console.log(error);
+    logger.error(error);
     return next(new ApiError(401,ERROR_MESSAGES.INTERNAL_SERVER_ERROR));
    }
 })
@@ -196,7 +195,7 @@ export const createBidsForPlayer = asyncHandler(async(req:MyUserRequest,res:Resp
     const response = new ApiResponse(201,newBidHistories,SUCCESS_MESSAGES.BID_HISTORY_CREATED_SUCCESSFULLY);
     res.status(201).json(response);
   }catch(error) {
-    console.log(error);
+    logger.error(error);
     return next(new ApiError(401, ERROR_MESSAGES.INTERNAL_SERVER_ERROR));
   }
 

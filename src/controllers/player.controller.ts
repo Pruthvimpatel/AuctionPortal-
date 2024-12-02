@@ -4,6 +4,7 @@ import ApiResponse from '../utils/api-response';
 import asyncHandler from '../utils/async-handler';
 import db  from '../sequelize-client';
 import uploadOnCloudinary from '../utils/cloudinary';
+import logger from '../logger';
 
 import User from '../models/user.model';
 import {ERROR_MESSAGES,SUCCESS_MESSAGES} from  '../constants/message';
@@ -17,7 +18,6 @@ interface MyUserRequest extends Request {
 //Player registration
  export const playerRegistration = asyncHandler(async (req: MyUserRequest, res: Response, next: NextFunction) => {
      const {name,age,role,teamId,basePrice,gender,battingOrder,battingHand,bowlingHand,skillRating} = req.body;
-     console.log(req.body)
 
      if(!name || !age || !role || !teamId || !basePrice ||!gender || !battingOrder || !battingHand || !bowlingHand || !skillRating) {
         return next(new ApiError(400,ERROR_MESSAGES.ALL_FIELDS_REQUIRED));
@@ -47,7 +47,7 @@ interface MyUserRequest extends Request {
         const response = new ApiResponse(201,newPlayer,SUCCESS_MESSAGES.PLAYER_REGISTER_SUCCESSFULLY);
         res.status(200).send(response);
      }catch(error) {
-        console.log(error);
+        logger.error(error);
         return next(new ApiError(500,ERROR_MESSAGES.INTERNAL_SERVER_ERROR));
      }
  });
@@ -98,9 +98,10 @@ interface MyUserRequest extends Request {
           currentPage: page,
           pageSize: limit
         }
-      }, SUCCESS_MESSAGES.ALL_PLAYERS_FETCHED_SUCCESSFULLY);    res.status(200).send(response);
+      }, SUCCESS_MESSAGES.ALL_PLAYERS_FETCHED_SUCCESSFULLY);
+          res.status(200).send(response);
   } catch(error) {
-    console.log(error);
+    logger.error(error);
     return next(new ApiError(500,ERROR_MESSAGES.INTERNAL_SERVER_ERROR));
   }
 
@@ -130,7 +131,7 @@ try {
     const response = new ApiResponse(200,player,SUCCESS_MESSAGES.PLAYER_DETAILS_FETCHED_SUCCESSFULLY);
     res.status(200).send(response);
 } catch (error) {
-    console.log(error);
+    logger.error(error);
     return next(new ApiError(500,ERROR_MESSAGES.INTERNAL_SERVER_ERROR));
 }
 });
@@ -168,7 +169,7 @@ try {
     const response = new ApiResponse(200,player, SUCCESS_MESSAGES.PLAYER_DETAILS_UPDATED_SUCCESSFULLY);
     res.status(200).send(response);
 } catch(error) {
-    console.error(ERROR_MESSAGES.SOMETHING_ERROR, error);
+    logger.error(ERROR_MESSAGES.SOMETHING_ERROR, error);
     return next(new ApiError(500, ERROR_MESSAGES.INTERNAL_SERVER_ERROR, [error]));
 }
 });
@@ -198,7 +199,7 @@ try {
     const response = new ApiResponse(200,player,SUCCESS_MESSAGES.PLAYER_DELETED_SUCCESSFULLY);
     res.status(200).send(response); 
 }catch(error) {
-    console.log(error);
+    logger.error(error);
     return next(new ApiError(500,ERROR_MESSAGES.INTERNAL_SERVER_ERROR));
 }
 });
@@ -234,7 +235,7 @@ export const profilePicture = asyncHandler(async(req:MyUserRequest,res:Response,
         res.status(200).json(new ApiResponse(200,user,SUCCESS_MESSAGES.PROFILE_UPLOAD_SUCCESSFULLY));
         return;
     }catch(error) {
-        console.log(error);
+        logger.error(error);
         return next(new ApiError(500, ERROR_MESSAGES.INTERNAL_SERVER_ERROR));
     }
 

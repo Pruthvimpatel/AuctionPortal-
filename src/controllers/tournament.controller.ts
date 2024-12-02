@@ -4,11 +4,11 @@ import ApiError from '../utils/api-error';
 import ApiResponse from '../utils/api-response';
 import asyncHandler from '../utils/async-handler';
 import db  from '../sequelize-client';
-import {generateAccessToken,generateRefreshToken} from '../utils/jwt.token'
-import encryption from '../utils/encryption';
 import User from '../models/user.model';
 import {ERROR_MESSAGES,SUCCESS_MESSAGES} from  '../constants/message';
 import { Op } from 'sequelize';
+import logger from '../logger';
+
 interface MyUserRequest extends Request {
     token?: string;
     user?: User;
@@ -47,7 +47,7 @@ export const createTournament = asyncHandler(async(req:MyUserRequest,res: Respon
         res.status(201).json(response);
 
     }catch(error){
-        console.log(error);
+        logger.error(error);
         return next(new ApiError(401,ERROR_MESSAGES.INTERNAL_SERVER_ERROR));
     }
 
@@ -100,7 +100,7 @@ export const getAllTournament = asyncHandler(async(req:MyUserRequest,res:Respons
     }, SUCCESS_MESSAGES.TOURNAMENT_FETCHED_SUCCESSFULLY);
     res.status(201).json(response);
  }catch(error) {
-    console.log(error);
+    logger.error(error);
     return next(new ApiError(401,ERROR_MESSAGES.INTERNAL_SERVER_ERROR));
  }
 });
@@ -129,7 +129,7 @@ try{
     const response = new ApiResponse(201,tournament,SUCCESS_MESSAGES.TOURNAMENT_DETAILS_FETCHED_SUCCESSFULLY);
     res.status(201).json(response);
 }catch(error){
-    console.log(error);
+    logger.error(error);
     return next(new ApiError(401,ERROR_MESSAGES.INTERNAL_SERVER_ERROR));
 }
 
@@ -159,7 +159,7 @@ export const updateTournamentDetails = asyncHandler(async(req:MyUserRequest,res:
   const response = new ApiResponse(201,updateTournamentDetails,SUCCESS_MESSAGES.TOURNAMENT_UPDATED_SUCCESSFULLY);
   res.status(201).json(response);
   }catch(error) {
-    console.log(error);
+    logger.error(error);
     return next(new ApiError(401,ERROR_MESSAGES.INTERNAL_SERVER_ERROR));
   }
 });
@@ -186,7 +186,7 @@ await deleteTournament.destroy();
 const response = new ApiResponse(200,SUCCESS_MESSAGES.TOURNAMENT_DELETED_SUCCESSFULLY);
 res.status(200).json(response)
 }catch(error) {
-    console.log(error);
+    logger.error(error);
     return next(new ApiError(401,ERROR_MESSAGES.INTERNAL_SERVER_ERROR));
 }
 });
@@ -231,7 +231,7 @@ export const addTeamToTournament = asyncHandler(async(req:MyUserRequest,res:Resp
         res.status(201).json(response);
 
     }catch(error) {
-        console.log(error);
+        logger.error(error);
         return next(new ApiError(401,ERROR_MESSAGES.INTERNAL_SERVER_ERROR));
     }
 });
@@ -262,7 +262,7 @@ export const getTeamsInTournament = asyncHandler(async(req:MyUserRequest,res:Res
         const response = new ApiResponse(200,teamsInTournament,SUCCESS_MESSAGES.TEAMS_FETCHED_SUCCESSFULLY);
         res.status(200).json(response);
     }catch(error) {
-        console.log(error)
+        logger.error(error);
         return next(new ApiError(400,ERROR_MESSAGES.INTERNAL_SERVER_ERROR));
     }
 
@@ -298,7 +298,7 @@ export const getTournamentsForTeam = asyncHandler(async(req:MyUserRequest,res:Re
    const response = new ApiResponse(200,tournaments,SUCCESS_MESSAGES.TOURNAMENT_FETCHED_SUCCESSFULLY);
    res.status(200).json(response);
     }catch(error) {
-        console.log(error);
+        logger.error(error);
         return next(new ApiError(400,ERROR_MESSAGES.INTERNAL_SERVER_ERROR));
     }
 });
@@ -311,9 +311,6 @@ export const updateTeamTournament = asyncHandler(async(req:MyUserRequest,res:Res
     }
     const{id} = req.params;   //id = teamTournamentId
     const {teamId, tournamentId} = req.params;
-    // if(!teamId || !tournamentId) {
-    //     return next(new ApiError(400,ERROR_MESSAGES.ALL_FIELDS_REQUIRED));
-    // }
    try {
     const findTeam = await db.TeamTournament.findByPk(id);
     if(!findTeam) {
@@ -328,7 +325,7 @@ export const updateTeamTournament = asyncHandler(async(req:MyUserRequest,res:Res
     res.status(200).json(response);
 
    }catch(error) {
-    console.log(error);
+    logger.error(error);
     return next(new ApiError(400,ERROR_MESSAGES.INTERNAL_SERVER_ERROR));
    }
 })

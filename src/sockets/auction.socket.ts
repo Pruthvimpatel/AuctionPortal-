@@ -3,6 +3,7 @@ import db from '../sequelize-client';
 import {ERROR_MESSAGES,SUCCESS_MESSAGES} from  '../constants/message';
 import Bid from '../models/bid.model';
 import Team from '../models/team.model';
+import logger from '../logger';
 
 interface StartAuctionData {
   tournamentId: string;
@@ -26,7 +27,7 @@ interface EndAuctionData {
 
 export default function AuctionSocket(io: Server) {
     io.on('connection',(socket: Socket) => {
-        console.info('New client connected',socket.id);
+        logger.info('New client connected',socket.id);
         
     //Handling starting an auction
     socket.on('startAuction',async(data:StartAuctionData)=> {
@@ -84,13 +85,12 @@ export default function AuctionSocket(io: Server) {
           });
   
         }catch(error) {
-        console.error('Error starting auction:', error);
+        logger.error('Error starting auction:', error);
         socket.emit('errorMessage', ERROR_MESSAGES.INTERNAL_SERVER_ERROR);
         }
     });
 
     //Handling placing a bid on a player
-
     socket.on('placeBid',async(data:PlaceBidData)=> {
       const {playerId,userId,teamId,bidAmount} = data;
       try {
@@ -182,7 +182,7 @@ if (!team) {
         auction: auctionWithBids,
       });
       }catch(error) {
-        console.error('Error placing bid:', error);
+        logger.error('Error placing bid:', error);
         socket.emit('errorMessage', ERROR_MESSAGES.INTERNAL_SERVER_ERROR);
 
       }
@@ -246,7 +246,7 @@ if (!team) {
           team: team,
         });
       } catch(error) {
-        console.error('Error ending auction:', error);
+        logger.error('Error ending auction:', error);
         socket.emit('errorMessage', ERROR_MESSAGES.INTERNAL_SERVER_ERROR);
       }
     })
@@ -327,13 +327,13 @@ if (!team) {
    io.emit('auctionEnded',response);
     
    }catch(error) {
-    console.error('Error ending entire auction:', error);
+    logger.error('Error ending entire auction:', error);
     socket.emit('errorMessage',ERROR_MESSAGES.INTERNAL_SERVER_ERROR);
    }
   })
   
     socket.on('disconnect',() => {
-    console.info('Client disconnected',socket.id);
+    logger.info('Client disconnected',socket.id);
     });
 });
 

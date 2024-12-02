@@ -3,10 +3,10 @@ import ApiError from '../utils/api-error';
 import ApiResponse from '../utils/api-response';
 import asyncHandler from '../utils/async-handler';
 import db  from '../sequelize-client';
+import logger from '../logger';
 
 import User from '../models/user.model';
 import {ERROR_MESSAGES,SUCCESS_MESSAGES} from  '../constants/message';
-import { Op } from 'sequelize';
 
 
 interface MyUserRequest extends Request {
@@ -51,7 +51,7 @@ interface MyUserRequest extends Request {
       const response = new ApiResponse(200,statistics,SUCCESS_MESSAGES.ADMIN_STATISTICS_FETCHED_SUCCESSFULLY);
       res.status(200).json(response);
       } catch(error) {
-        console.log(error);
+        logger.error(error);
         return next(new ApiError(500,ERROR_MESSAGES.INTERNAL_SERVER_ERROR));
      }
 
