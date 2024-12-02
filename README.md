@@ -5,6 +5,7 @@ AUCTION PORTAL
 - [Scripts and Tasks](#-scripts-and-tasks)
 - [API Routes](#-api-routes)
 - [Project Structure](#-project-structure)
+-  [Deployment](#-Deployment)
 
 ## ❯ Getting Started
 ### Step 1: Set up the Environment
@@ -90,3 +91,34 @@ The route prefix is /api/v1 by default.
 | **src/sequelize-client/**     | Initializes Sequelize with database configurations, defines models, and sets up their associations. |
 | .env                          | Environment configuration |
 | .env.sample                   | Provides a template for environment variables required to configure the application |
+
+
+## ❯ Deployment
+
+#### Prerequisites
+- GitHub account
+- Vercel account
+- Project pushed to a GitHub repository
+
+#### Deployment Steps
+
+1. **Install Vercel CLI (Optional but Recommended)**
+   ```bash
+   npm install -g vercel
+2.Vercel Deployment
+
+Option A: Via Vercel Website
+
+- Go to vercel.com
+- Log in with GitHub
+- Click "New Project"
+- Select your repository
+- Configure build settings
+- Click "Deploy"
+
+Option B: Using Vercel CLI
+ - Login to Vercel:- vercel login
+ - Deploy (development):- vercel
+ - Deploy to production:- vercel --prod
+
+
