@@ -12,7 +12,10 @@ try {
     await db.sequelize.sync({force: false});
     logger.info('Database Connection Succeed');
 
-    server.listen(PORT, () => {
+    server.listen({
+        port: PORT,
+        host: '0.0.0.0'
+    }, () => {
         logger.info(`Server Listening on port ${PORT}`);
     });
 } catch(error) {
